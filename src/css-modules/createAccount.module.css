@@ -1,0 +1,60 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    min-width: 50%;
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    min-width: 50%;
+    background-color: #000000;
+    color: #ffffff;
+}
+.label{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.input{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.button{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bold;
+}
+.passwordError{
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
