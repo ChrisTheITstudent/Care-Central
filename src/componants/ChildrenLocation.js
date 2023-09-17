@@ -44,7 +44,7 @@ function ChildrenLocation() {
                 <h1 className={styles.roomTitle} >{room}</h1>
                 <hr className={styles.hr} />
                 {children[room] && children[room].map((child, index2) => {
-                  return <p key={index2} className={styles.childName}>{child.name}</p>
+                  return <p data-testid="child" key={index2} className={styles.childName}>{child.name}</p>
                 })}
                 <hr className={styles.hr} />
               </div>

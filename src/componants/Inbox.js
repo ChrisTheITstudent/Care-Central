@@ -11,16 +11,17 @@ function Inbox() {
 
   return (
     <div className={styles.container}>
-      <h2>Inbox</h2>
+      <h2 data-testid="title">Inbox</h2>
       <div className={styles.onlineIndicator}>
         <div
+           data-testid="onlineIndicator"
           className={online ? styles.online : styles.offline}
           onClick={() => setOnline(!online)}
         ></div>
         {online ? "Online" : "Offline"}
       </div>
       <hr className={styles.hr} />
-      <div className={styles.inbox}>
+      <div data-testid="inbox" className={styles.inbox}>
         <Message key="na" message={
           {
             id: "-1",

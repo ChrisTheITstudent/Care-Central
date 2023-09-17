@@ -153,7 +153,7 @@ export async function getChild(id) {
             return response.data;
         })
         .catch((error) => {
-            alert("Get request error: " + error);
+            console.log("Get request error: " + error);
         });
 }
 // Get children by room
@@ -170,13 +170,25 @@ export async function getChildrenByRoom(room) {
         });
 }
 // Update child
-export function updateChild(child) {
+export async function updateChild(child) {
     axios.put(`http://localhost:3001/children/${child.id}`, child, { headers: updateHeaders })
         .then((response) => {
+            console.log("Child updated: ", response.data);
             return response.data;
         })
         .catch((error) => {
-            console.log("Get request error: " + error);
+            console.log("Put request error: " + error);
+        });
+}
+// Create child
+export async function createChild(child) {
+    axios.post('http://localhost:3001/children', child, { headers: updateHeaders })
+        .then((response) => {
+            console.log("New child created: ", response.data);
+            return response.data;
+        })
+        .catch((error) => {
+            console.log("Post request error: " + error);
         });
 }
 

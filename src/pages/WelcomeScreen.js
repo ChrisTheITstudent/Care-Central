@@ -87,19 +87,19 @@ function WelcomeScreen() {
     <div className={styles.container}>
       <div className={styles.card}>
         {/* Title */}
-        <h1 className={styles.title}>Welcome to CareCentral</h1>
+        <h1 data-testid="welcomeScreen" className={styles.title}>Welcome to CareCentral</h1>
         <hr className={styles.hr} />
         {/* Login form */}
-        <form className={styles.form} onSubmit={(e) => { handleLoginClick(e) }}>
+        <form data-testid="loginForm" className={styles.form} onSubmit={(e) => { handleLoginClick(e) }}>
           <label className={styles.label}>Username</label>
-          <input className={styles.input} type='text' value={username} onChange={(e) => {handleUsernameChange(e)}} />
+          <input data-testid="username" className={styles.input} type='text' value={username} onChange={(e) => {handleUsernameChange(e)}} />
           <label className={styles.label}>Password</label>
-          <input className={styles.input} type='password' value={password} onChange={(e) => {handlePasswordChange(e)}} />
-          <button className={styles.button} type='submit'>Login</button>
+          <input data-testid="password" className={styles.input} type='password' value={password} onChange={(e) => {handlePasswordChange(e)}} />
+          <button data-testid="submit" className={styles.button} type='submit'>Login</button>
         </form>
         {/* Create account link */}
         <div className={styles.createAccount}>
-          <p className={styles.createAccountLink} onClick={handleCreateAccountClick}>Create an account</p>
+          <p data-testid="createAccount" className={styles.createAccountLink} onClick={handleCreateAccountClick}>Create an account</p>
         </div>
       </div>
     </div>

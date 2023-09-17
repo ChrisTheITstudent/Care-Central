@@ -131,6 +131,86 @@
           "name": "Sally"
         }
       ]
+    },
+    {
+      "id": 6,
+      "username": "test",
+      "password": "test",
+      "role": "family",
+      "children": [
+        {
+          "id": 1,
+          "name": "Alice",
+          "DOB": "01-01-2020",
+          "parent": [
+            {
+              "id": 1,
+              "username": "foobar"
+            }
+          ],
+          "room": null,
+          "isAttending": false,
+          "authorizedPersons": "Mum, Dad, Grandma",
+          "allergies": "Peanuts",
+          "medications": "None",
+          "specialNeeds": "None",
+          "notes": "None"
+        },
+        {
+          "id": 2,
+          "name": "Bob",
+          "DOB": "01-01-2023",
+          "parent": [
+            {
+              "id": 1,
+              "username": "foobar"
+            }
+          ],
+          "room": null,
+          "isAttending": false,
+          "authorizedPersons": "Mum, Dad, Grandma",
+          "allergies": "Bees",
+          "medications": "EpiPen",
+          "specialNeeds": "Wheelchair required",
+          "notes": "None"
+        },
+        {
+          "id": 3,
+          "name": "Johnny",
+          "DOB": "01-01-2020",
+          "parent": [
+            {
+              "id": 5,
+              "username": "dummyForDevelopment"
+            }
+          ],
+          "room": null,
+          "isAttending": false,
+          "authorizedPersons": "Mum, Dad, Step-mum, Step-dad, Grandma, Grandpa",
+          "allergies": "Strawberries",
+          "medications": "Amoxicillin",
+          "specialNeeds": "None",
+          "notes": "None"
+        },
+        {
+          "id": 4,
+          "name": "Sally",
+          "DOB": "01-01-2023",
+          "parent": [
+            {
+              "id": 5,
+              "username": "dummyForDevelopment"
+            }
+          ],
+          "room": null,
+          "isAttending": false,
+          "authorizedPersons": "Mum, Dad, Grandma",
+          "allergies": "Latex, Peanuts",
+          "medications": "Ventolin, EpiPen, Amoxicillin, Paracetamol, Ibuprofen",
+          "specialNeeds": "Deaf",
+          "notes": "None"
+        }
+      ]
     }
   ],
   "children": [
