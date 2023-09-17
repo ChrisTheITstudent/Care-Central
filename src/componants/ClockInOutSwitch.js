@@ -31,7 +31,7 @@ function ClockInOutSwitch() {
   return (
       <div className={styles.container} onClick={ handleSwitch }>
           <div className={styles.switch}>
-              <div className={switchStyle} />
+              <div data-testid="switch" className={switchStyle} />
           </div>
       </div>
   )

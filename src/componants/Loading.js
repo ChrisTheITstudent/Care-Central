@@ -4,7 +4,7 @@ import styles from '../css-modules/loading.module.css'
 function Loading() {
   return (
       <div className={styles.container}>
-          <div className={styles.spinner}><h1>Loading!!!!!</h1></div>
+          <div data-testid="spinner" className={styles.spinner}><h1>Loading!!!!!</h1></div>
       </div>
   )
 }

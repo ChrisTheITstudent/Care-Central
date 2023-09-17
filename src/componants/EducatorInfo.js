@@ -7,12 +7,12 @@ function EducatorInfo() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Educator Information</h1>
+      <h1 data-testid="title" className={styles.title}>Educator Information</h1>
       <hr className={styles.hr}/>
       <div className={styles.info}>
-        <p className={styles.infoItem}>Name: {educator.user}</p>
-        <p className={styles.infoItem}>Room: {educator.room?educator.room:"N/A"}</p>
-        <p className={styles.infoItem}>In Count: {educator.clockedIn ? "Yes" : "No"}</p>
+        <p data-testid="name" className={styles.infoItem}>Name: {educator.user}</p>
+        <p data-testid="room" className={styles.infoItem}>Room: {educator.room?educator.room:"N/A"}</p>
+        <p data-testid="clockedIn" className={styles.infoItem}>In Count: {educator.clockedIn ? "Yes" : "No"}</p>
       </div>
     </div>
   )

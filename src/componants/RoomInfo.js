@@ -54,8 +54,8 @@ function RoomInfo() {
       <div className={styles.info}>
         {/* Class list */}
         <div className={styles.infoItem}>
-          <h2 className={styles.infoTitle}>Class List</h2>
-          <div className={styles.infoList}>
+          <h2 data-testid="title" className={styles.infoTitle}>Class List</h2>
+          <div data-testid="classList" className={styles.infoList}>
             {classList.length > 0 ? classList.map((student, index) => {
               return <p className={styles.infoText} key={index}>{student}</p>
             }) : (<p className={styles.infoText}>No students in this class</p>)
@@ -72,7 +72,7 @@ function RoomInfo() {
         {/* Educator list */}
         <div className={styles.infoItem}>
           <h2 className={styles.infoTitle}>Educator List</h2>
-          <div className={styles.infoList}>
+          <div data-testid="educatorList" className={styles.infoList}>
             {educatorList.map((educator, index) => {
               return <div className={styles.infoListItem} key={index}>{educator}</div>
             })}
@@ -87,7 +87,7 @@ function RoomInfo() {
         <hr className={styles.divider} />
         <div className={styles.infoItem}>
           <h2 className={styles.infoTitle}>Educators Required</h2>
-          <p className={styles.infoText}>{educatorsRequired}</p>
+          <p data-testid="educatorsRequired" className={styles.infoText}>{educatorsRequired}</p>
         </div>
       </div>
     </div>

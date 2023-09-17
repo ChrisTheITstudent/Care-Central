@@ -1,5 +1,5 @@
 import WelcomeScreen from './pages/WelcomeScreen';
-import CreateAccount from './pages/CreateAccount';
+import CreateAccount from './pages/onBoarding/accountCreation/CreateAccount';
 import './App.css';
 import { useSelector } from 'react-redux';
 import Loading from './componants/Loading';

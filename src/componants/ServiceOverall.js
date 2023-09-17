@@ -41,14 +41,14 @@ function ServiceOverall() {
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>Total children present</p>
-      <p className={styles.text}>{childrenPresent}</p>
+      <p data-testid="childrenTitle" className={styles.title}>Total children present</p>
+      <p data-testid="childrenPresent" className={styles.text}>{childrenPresent}</p>
       <hr className={styles.divider}/>
-      <p className={styles.title}>Total educators present</p>
-      <p className={styles.text}>{educatorsClockedIn}</p>
+      <p data-testid="educatorTitle" className={styles.title}>Total educators present</p>
+      <p data-testid="clockedIn" className={styles.text}>{educatorsClockedIn}</p>
       <hr className={styles.divider}/>
-      <p className={styles.title}>Educators required</p>
-      <p className={styles.text}>{educatorsRequiredOverAll}</p>
+      <p data-testid="requiredTitle" className={styles.title}>Educators required</p>
+      <p data-testid="educatorsRequired" className={styles.text}>{educatorsRequiredOverAll}</p>
     </div>
   )
 }

@@ -11,7 +11,7 @@ function EducatorDashboard() {
 
   return (
     <div className={styles.educatorContainer}>
-      <h1 className={styles.title}>Educator Dashboard</h1>
+      <h1 data-testid="educatorDashboardTitle" className={styles.title}>Educator Dashboard</h1>
       <hr className={styles.mainSeperator} />
       <div className={styles.educatorInfo}>
         <EducatorInfo />

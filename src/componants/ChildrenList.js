@@ -7,7 +7,7 @@ import Loading from './Loading'
 function ChildrenList() {
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
-    const [userChildren, setUserChildren] = useState([])
+    const [userChildren, setUserChildren] = React.useState([])
     const [childrenLoaded, setChildrenLoaded] = useState(true)
 
     useEffect(() => {
@@ -42,18 +42,18 @@ function ChildrenList() {
     return (
         <>
         {childrenLoaded ? <Loading /> :
-                <div className={styles.childrenList}>
-                    <h2 className={styles.h2}>Children</h2>
-                    <div className={styles.children}>
+                <div data-testid="childrenList" className={styles.childrenList}>
+                    <h2 data-testid="title" className={styles.h2}>Children</h2>
+                    <div data-testid="children" className={styles.children}>
                         {userChildren.length > 3 ? <div className={styles.spacer}></div> : null
                         }
                         {userChildren.map((child) => (
-                            <div key={child.id} className={styles.child } onClick={()=>handleChildClick(child)}>
+                            <div data-testid="child" key={child.id} className={styles.child } onClick={()=>handleChildClick(child)}>
                                 
                                 {/* DEBUG: isSelected is not returning the sected class style */}
-                                <div className={styles.childName}>{child.name}</div>
-                                <div className={styles.childDOB}>{calculateAge(child.DOB)}</div>
-                                <div className={styles.room}>{child.room !== null ? child.room : "Not allocated"}</div>
+                                <div data-testid="childName" className={styles.childName}>{child.name}</div>
+                                <div data-testid="childDOB" className={styles.childDOB}>{calculateAge(child.DOB)}</div>
+                                <div data-testid="childRoom" className={styles.room}>{child.room !== null ? child.room : "Not allocated"}</div>
                                 
                             </div>
                         ))}

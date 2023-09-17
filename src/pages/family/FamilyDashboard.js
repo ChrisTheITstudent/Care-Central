@@ -8,7 +8,7 @@ function FamilyDashboard() {
   return (
     <div className={styles.container}>
       {/* Title */}
-      <h1 className={styles.h1}>Family Dashboard</h1>
+      <h1 data-testid='dashboardTitle' className={styles.h1}>Family Dashboard</h1>
       {/* TODO: Utilize the vertical space more on the styling layout */}
       <div className={styles.componants}>
         <div className={styles.childrenList}>
