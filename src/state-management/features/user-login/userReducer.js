@@ -108,10 +108,10 @@ const userReducer = createReducer(initialState, (builder) => {
                 return;
             } else {
                 state.error = null;
+                state.loading = false;
             }
         })
         .addCase(userRegisterSuccess, (state, action) => {
-            // TODO: Add user to database
             if (state.error) {
                 return "Error: State set as: " + state.error;
             } else {
@@ -139,12 +139,27 @@ const userReducer = createReducer(initialState, (builder) => {
                 state.role = action.payload.role;
             }
             if (action.payload.children) {
-                state.children = action.payload.children;
+                let children = [];
+                state.children = action.payload.children.forEach(child => {
+                    children.push({
+                        id: child.id,
+                        name: child.name,
+                        DOB: child.DOB,
+                        parent: [{
+                            id: null,
+                            username: state.user
+                        }],
+                        authorizedPersons: child.authorizedPersons,
+                        allergies: child.allergies,
+                        medications: child.medications,
+                        specialNeeds: child.specialNeeds,
+                        notes: child.notes
+                    })
+                });
             }
             if (action.payload.room || action.payload.room === null) {
                 state.room = action.payload.room;
-            }
-            console.log("User updated successfully!", state.user, state.room);
+            };
         })
         .addCase(userUpdateSuccess, (state, action) => {
             state.error = null;

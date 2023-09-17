@@ -9,12 +9,12 @@ function Message(props) {
 
     return (
     <div key={props.message.id} className={styles.message}>
-        <div className={styles.messageHeader} onClick={toggleHidden}>
-          <div className={styles.messageSubject}>{props.message.subject}</div>
-          <div className={styles.messageFrom}>{props.message.from}</div>
+        <div data-testid="header" className={styles.messageHeader} onClick={toggleHidden}>
+          <div data-testid="subject" className={styles.messageSubject}>{props.message.subject}</div>
+          <div data-testid="from" className={styles.messageFrom}>{props.message.from}</div>
         </div>
-        <div className={isHidden?styles.hidden:styles.messageDate}>Date: {props.message.date}</div>
-        <div className={isHidden?styles.hidden:styles.messageBody}>{props.message.message}</div>
+        <div data-testid="date" className={isHidden?styles.hidden:styles.messageDate}>Date: {props.message.date}</div>
+        <div data-testid="body" className={isHidden?styles.hidden:styles.messageBody}>{props.message.message}</div>
     </div>
   )
 }

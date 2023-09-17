@@ -27,7 +27,6 @@ const roomSelectorReducer = createReducer(initialState, (builder) => {
         // Set selected room case
         .addCase("roomSelector/setSelectedRoom", (state, action) => {
             state.selectedRoom = action.payload;
-            console.log(action.payload);
         })
         // Set capacity case
         .addCase("roomSelector/setCapacity", (state, action) => {

@@ -9,11 +9,11 @@ function RoomSelector() {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.selectContainer} ${roomSelector.roomSelectorOn && `${styles.open}`}`} onClick={()=>dispatch({type: "roomSelector/roomSelectorToggle", payload: roomSelector.roomSelectorOn})}>
+      <div data-testid="selectionContainer" className={`${styles.selectContainer} ${roomSelector.roomSelectorOn && `${styles.open}`}`} onClick={()=>dispatch({type: "roomSelector/roomSelectorToggle", payload: roomSelector.roomSelectorOn})}>
         {roomSelector.selectedRoom ? roomSelector.selectedRoom : "Select a room"}
       </div>
       {roomSelector.roomSelectorOn &&
-        <div className={styles.selection}>
+        <div data-testid="roomSelector" className={styles.selection}>
           {rooms.map((room) => {
             return (
               <button
