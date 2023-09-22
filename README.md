@@ -1,8 +1,10 @@
 # Welcome to Care Central
 
-This is a create-react-app designed for the early childhood education sector with the target audience as:
-a) Educators
-b) Families
+This is a create-react-app designed for the early childhood education sector with the target audience as:\
+a) Educators\
+b) Families\
+
+---
 
 ## Available Scripts
 
@@ -32,5 +34,31 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm run server`
 
-Begins the json-server running on default localhost port 3001.
+Begins the json-server running on default localhost port 3001.\
 DB files are under db.json
+
+---
+
+## Features
+
+Care Central currently supports basic features for operational use of the application and for UX testing.
+
+### `Login`
+
+Login functions check the user within the database and check an correctly encypted password.
+
+### `Create account`
+
+Users are able to create accounts and these save within the database.
+
+### `Role dashboards`
+
+Currently supported dashboards are:
+*Family
+*Educator
+
+### `Ratio calculations`
+
+Raitos and children lists are avaliable on educator dashboards for viewing. Database integration isn't supported.
+
+---
