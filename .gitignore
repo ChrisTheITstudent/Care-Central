@@ -7,6 +7,8 @@
 
 # testing
 /coverage
+/src/__tests__/__snapshots__/
+/src/api/tests
 
 # production
 /build
@@ -21,3 +23,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Security
+/src/api/security
+private_key.pem
+public_key.pem
+privKey.pem
+pubKey.pem
+
+# Database
+/src/api/db*
