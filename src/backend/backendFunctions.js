@@ -11,9 +11,28 @@ const updateHeaders = {
     'Content-Type': 'application/json'
 }
 
+const url = 'http://127.0.0.1:8000/'
+
 // User account functions
+export async function login(username, password) {
+    return axios.get(`${url}users?username=${username}&password=${password}`)
+        .then((response) => {
+            if (response) {
+                getUser(username).then((user) => {
+                    return user;
+                });
+            }
+            else {
+                throw new Error("Incorrect username or password");
+            }
+        })
+        .catch((error) => {
+            console.log("Login request error: " + error);
+        });
+}
+
 export async function getAllUsers() {
-    return axios.get('http://localhost:3001/users')
+    return axios.get(url+'users')
         .then((response) => {
             return response.data;
         })
@@ -23,39 +42,14 @@ export async function getAllUsers() {
 }
 
 export async function getUser(username) {
-    let response = await axios.get('http://localhost:3001/users')
+    let response = await axios.get(`${url}users/${username}`)
     let users = response.data;
-    let user = null;
-    users.forEach((u) => {
-        if (u.username === username) {
-            user = u;
-        }
-    });
-    
-    try {
-        if (user === null) {
-            throw new Error("No users found");
-        }
-        else {
-            if (user.password === null) {
-                throw new Error("Password is null");
-            }
-            else if (user.password === undefined) {
-                throw new Error("Password is undefined");
-            }
-            else {
-                return user;
-            }
-        }
-    }
-    catch (error) {
-        alert("Get user error: " + error);
-        return null;
-    }
+    console.log("Users: ", users);
+    return users;
 }
 
 export function createUser(username, password) {
-    axios.post('http://localhost:3001/users', new User(username, password))
+    axios.post(url+'users', new User(username, password))
         .then((response) => {
             return response.data;
         })
@@ -66,7 +60,7 @@ export function createUser(username, password) {
 
 // Get user by room
 export async function getUserByRoom(room) {
-    return axios.get(`http://localhost:3001/users?room=${room}`)
+    return axios.get(`${url}users?room=${room}`)
         .then((response) => {
             return response.data;
         })
@@ -77,7 +71,7 @@ export async function getUserByRoom(room) {
 
 // Update user
 export function updateUser(user) {
-    axios.put(`http://localhost:3001/users/${user.id}`, {
+    axios.put(`${url}users/${user.username}`, {
         id: user.id,
         username: user.user,
         password: user.password,
@@ -95,7 +89,7 @@ export function updateUser(user) {
 }
 // Clock user in
 export async function clockUserInOut(user) {
-    axios.put(`http://localhost:3001/users/${user.id}`, {
+    axios.put(`${url}users/${user.username}`, {
         id: user.id,
         username: user.user,
         password: user.password,
@@ -114,7 +108,7 @@ export async function clockUserInOut(user) {
 
 // Children account functions
 export async function getChildren(username) {
-    return axios.get('http://localhost:3001/children')
+    return axios.get(url+'children')
         .then((response) => {
             let children = []
             let data = response.data;
@@ -138,7 +132,7 @@ export async function getChildren(username) {
 }
 // Get all children
 export async function getAllChildren() {
-    return axios.get('http://localhost:3001/children')
+    return axios.get(url+'children')
         .then((response) => {
             return response.data;
         })
@@ -148,7 +142,7 @@ export async function getAllChildren() {
 }
 // Get child by ID
 export async function getChild(id) {
-    return axios.get(`http://localhost:3001/children/${id}`)
+    return axios.get(`${url}children/${id}`)
         .then((response) => {
             return response.data;
         })
@@ -161,7 +155,7 @@ export async function getChildrenByRoom(room) {
     if (room === null) {
         return [];
     }
-    return axios.get(`http://localhost:3001/children?room=${room}`)
+    return axios.get(`${url}children?room=${room}`)
         .then((response) => {
             return response.data;
         })
@@ -171,7 +165,7 @@ export async function getChildrenByRoom(room) {
 }
 // Update child
 export async function updateChild(child) {
-    axios.put(`http://localhost:3001/children/${child.id}`, child, { headers: updateHeaders })
+    axios.put(`${url}children/${child.id}`, child, { headers: updateHeaders })
         .then((response) => {
             console.log("Child updated: ", response.data);
             return response.data;
@@ -182,7 +176,7 @@ export async function updateChild(child) {
 }
 // Create child
 export async function createChild(child) {
-    axios.post('http://localhost:3001/children', child, { headers: updateHeaders })
+    axios.post(url+'children', child, { headers: updateHeaders })
         .then((response) => {
             console.log("New child created: ", response.data);
             return response.data;

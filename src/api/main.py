@@ -3,12 +3,19 @@ sys.path.append('C:/Users/c_mil/Desktop/Dev/React/CareCentralV2_0/carecentral/sr
 
 from typing import Union
 from fastapi import FastAPI
-from fastapi.responses import PlainTextResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import encryption as enc
 import db_qurries as db
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class User(BaseModel):
     username: str
@@ -43,6 +50,7 @@ def read_user(username: str):
     db_response = db.get_filtered_entries("users", {"username": username})
     for user in db_response:
         user["_id"] = str(user["_id"])
+        user["password"] = None
         return user
 
 # Put requests
