@@ -11,28 +11,9 @@ const updateHeaders = {
     'Content-Type': 'application/json'
 }
 
-const url = 'http://127.0.0.1:8000/'
-
 // User account functions
-export async function login(username, password) {
-    return axios.get(`${url}users?username=${username}&password=${password}`)
-        .then((response) => {
-            if (response) {
-                getUser(username).then((user) => {
-                    return user;
-                });
-            }
-            else {
-                throw new Error("Incorrect username or password");
-            }
-        })
-        .catch((error) => {
-            console.log("Login request error: " + error);
-        });
-}
-
 export async function getAllUsers() {
-    return axios.get(url+'users')
+    return axios.get('http://localhost:3001/users')
         .then((response) => {
             return response.data;
         })
@@ -42,13 +23,39 @@ export async function getAllUsers() {
 }
 
 export async function getUser(username) {
-    let response = await axios.get(`${url}users/${username}`)
+    let response = await axios.get('http://localhost:3001/users')
     let users = response.data;
-    return users;
+    let user = null;
+    users.forEach((u) => {
+        if (u.username === username) {
+            user = u;
+        }
+    });
+    
+    try {
+        if (user === null) {
+            throw new Error("No users found");
+        }
+        else {
+            if (user.password === null) {
+                throw new Error("Password is null");
+            }
+            else if (user.password === undefined) {
+                throw new Error("Password is undefined");
+            }
+            else {
+                return user;
+            }
+        }
+    }
+    catch (error) {
+        alert("Get user error: " + error);
+        return null;
+    }
 }
 
 export function createUser(username, password) {
-    axios.post(url+'users', new User(username, password))
+    axios.post('http://localhost:3001/users', new User(username, password))
         .then((response) => {
             return response.data;
         })
@@ -59,7 +66,7 @@ export function createUser(username, password) {
 
 // Get user by room
 export async function getUserByRoom(room) {
-    return axios.get(`${url}users/rooms/${room}`)
+    return axios.get(`http://localhost:3001/users?room=${room}`)
         .then((response) => {
             return response.data;
         })
@@ -70,13 +77,15 @@ export async function getUserByRoom(room) {
 
 // Update user
 export function updateUser(user) {
-    if (user.username === null || user.username === undefined) {
-        return;
-    }
-    axios.put(`${url}users/${user.username}`, {
+    axios.put(`http://localhost:3001/users/${user.id}`, {
+        id: user.id,
+        username: user.user,
+        password: user.password,
+        role: user.role,
+        children: user.children,
         room: user.room,
         clockedIn: user.clockedIn
-    })
+    }, { headers: updateHeaders})
     .then((response) => {
         return response.data;
     })
@@ -84,15 +93,17 @@ export function updateUser(user) {
         console.log("Update request error: " + error);
     });
 }
-// Clock user in/out
+// Clock user in
 export async function clockUserInOut(user) {
-    if (user.username === null || user.username === undefined) {
-        return;
-    }
-    axios.put(`${url}users/${user.username}`, {
+    axios.put(`http://localhost:3001/users/${user.id}`, {
+        id: user.id,
         username: user.user,
+        password: user.password,
+        role: user.role,
+        children: user.children,
+        room: user.room,
         clockedIn: user.clockedIn
-    })
+    }, { headers: updateHeaders })
         .then((response) => {
             return response.data;
         })
@@ -103,9 +114,22 @@ export async function clockUserInOut(user) {
 
 // Children account functions
 export async function getChildren(username) {
-    return axios.get(`${url}children/${username}`)
+    return axios.get('http://localhost:3001/children')
         .then((response) => {
-            return response.data;
+            let children = []
+            let data = response.data;
+            
+            for (let i = data.length - 1; i >= 0; i--) {
+
+                for (let ii = data[i].parent.length - 1; ii >= 0; ii--) {
+
+                    if (data[i].parent[ii].username === username) {
+                        
+                        children.push(data[i])
+                    }
+                }
+            }
+            return children;
         })
         .catch((error) => {
             alert("Get request error: " + error);
@@ -114,7 +138,7 @@ export async function getChildren(username) {
 }
 // Get all children
 export async function getAllChildren() {
-    return axios.get(url+'children')
+    return axios.get('http://localhost:3001/children')
         .then((response) => {
             return response.data;
         })
@@ -124,7 +148,7 @@ export async function getAllChildren() {
 }
 // Get child by ID
 export async function getChild(id) {
-    return axios.get(`${url}children/${id}`)
+    return axios.get(`http://localhost:3001/children/${id}`)
         .then((response) => {
             return response.data;
         })
@@ -137,7 +161,7 @@ export async function getChildrenByRoom(room) {
     if (room === null) {
         return [];
     }
-    return axios.get(`${url}children/rooms/${room}`)
+    return axios.get(`http://localhost:3001/children?room=${room}`)
         .then((response) => {
             return response.data;
         })
@@ -147,7 +171,7 @@ export async function getChildrenByRoom(room) {
 }
 // Update child
 export async function updateChild(child) {
-    axios.put(`${url}children/${child._id}`, child)
+    axios.put(`http://localhost:3001/children/${child.id}`, child, { headers: updateHeaders })
         .then((response) => {
             console.log("Child updated: ", response.data);
             return response.data;
@@ -158,7 +182,7 @@ export async function updateChild(child) {
 }
 // Create child
 export async function createChild(child) {
-    axios.post(url+'children', child, { headers: updateHeaders })
+    axios.post('http://localhost:3001/children', child, { headers: updateHeaders })
         .then((response) => {
             console.log("New child created: ", response.data);
             return response.data;
