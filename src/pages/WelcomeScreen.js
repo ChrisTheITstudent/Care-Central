@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { getUser } from "../backend/backendFunctions";
 
 function WelcomeScreen() {
-  const [username, setUsername] = useState('educator')
+  const [username, setUsername] = useState('developmentDummy')
   const [password, setPassword] = useState('secret')
   const dispatch = useDispatch()
 
@@ -33,19 +33,13 @@ function WelcomeScreen() {
     try {
       userAuth.then((response) => {
           try {
-            if (response === null) {
-                throw new Error("User does not exist");
-            } else if (response.password !== password) {
-                throw new Error("Incorrect password");
+            if (!response) {
+                throw new Error("Error logging in. Please try again.");
             } else {
-              // TODO: Create a cypher for password:
-              //                                      - using 2 keys(one client side, one server side)
-              //                                      - using a rotation cypher to encrypt the password before encrypting it with the keys
               dispatch({
                 type: "user/LoginSuccess", payload: {
                   id: response.id,
                   username: response.username,
-                  password: response.password,
                   role: response.role,
                   children: response.children,
                   room: response.room,

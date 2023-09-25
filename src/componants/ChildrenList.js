@@ -48,7 +48,7 @@ function ChildrenList() {
                         {userChildren.length > 3 ? <div className={styles.spacer}></div> : null
                         }
                         {userChildren.map((child) => (
-                            <div data-testid="child" key={child.id} className={styles.child } onClick={()=>handleChildClick(child)}>
+                            <div data-testid="child" key={child.name} className={styles.child } onClick={()=>handleChildClick(child)}>
                                 
                                 {/* DEBUG: isSelected is not returning the sected class style */}
                                 <div data-testid="childName" className={styles.childName}>{child.name}</div>
