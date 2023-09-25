@@ -44,7 +44,6 @@ export async function getAllUsers() {
 export async function getUser(username) {
     let response = await axios.get(`${url}users/${username}`)
     let users = response.data;
-    console.log("Users: ", users);
     return users;
 }
 
@@ -60,7 +59,7 @@ export function createUser(username, password) {
 
 // Get user by room
 export async function getUserByRoom(room) {
-    return axios.get(`${url}users?room=${room}`)
+    return axios.get(`${url}users/rooms/${room}`)
         .then((response) => {
             return response.data;
         })
@@ -71,15 +70,13 @@ export async function getUserByRoom(room) {
 
 // Update user
 export function updateUser(user) {
+    if (user.username === null || user.username === undefined) {
+        return;
+    }
     axios.put(`${url}users/${user.username}`, {
-        id: user.id,
-        username: user.user,
-        password: user.password,
-        role: user.role,
-        children: user.children,
         room: user.room,
         clockedIn: user.clockedIn
-    }, { headers: updateHeaders})
+    })
     .then((response) => {
         return response.data;
     })
@@ -87,17 +84,15 @@ export function updateUser(user) {
         console.log("Update request error: " + error);
     });
 }
-// Clock user in
+// Clock user in/out
 export async function clockUserInOut(user) {
+    if (user.username === null || user.username === undefined) {
+        return;
+    }
     axios.put(`${url}users/${user.username}`, {
-        id: user.id,
         username: user.user,
-        password: user.password,
-        role: user.role,
-        children: user.children,
-        room: user.room,
         clockedIn: user.clockedIn
-    }, { headers: updateHeaders })
+    })
         .then((response) => {
             return response.data;
         })
@@ -108,22 +103,9 @@ export async function clockUserInOut(user) {
 
 // Children account functions
 export async function getChildren(username) {
-    return axios.get(url+'children')
+    return axios.get(`${url}children/${username}`)
         .then((response) => {
-            let children = []
-            let data = response.data;
-            
-            for (let i = data.length - 1; i >= 0; i--) {
-
-                for (let ii = data[i].parent.length - 1; ii >= 0; ii--) {
-
-                    if (data[i].parent[ii].username === username) {
-                        
-                        children.push(data[i])
-                    }
-                }
-            }
-            return children;
+            return response.data;
         })
         .catch((error) => {
             alert("Get request error: " + error);
@@ -155,7 +137,7 @@ export async function getChildrenByRoom(room) {
     if (room === null) {
         return [];
     }
-    return axios.get(`${url}children?room=${room}`)
+    return axios.get(`${url}children/rooms/${room}`)
         .then((response) => {
             return response.data;
         })
@@ -165,7 +147,7 @@ export async function getChildrenByRoom(room) {
 }
 // Update child
 export async function updateChild(child) {
-    axios.put(`${url}children/${child.id}`, child, { headers: updateHeaders })
+    axios.put(`${url}children/${child._id}`, child)
         .then((response) => {
             console.log("Child updated: ", response.data);
             return response.data;
