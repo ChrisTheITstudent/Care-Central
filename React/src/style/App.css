@@ -1,0 +1,257 @@
+:root {
+  --mainBackground: rgb(224, 247, 255);
+  --headerBackground: rgb(0, 0, 255);
+  --lightBorder: rgb(173, 216, 230);
+  --medBorder: rgb(112, 159, 175);
+  --darkBorder: rgb(55, 98, 112);
+  --systemBorder: rgba(128, 128, 128);
+  --disabledBackground: rgba(128, 128, 128, 0.582);
+  --systemBackground: rgb(61, 61, 61);
+  --text: rgb(255, 255, 255);
+  --confirmIcon: rgb(74, 254, 4);
+  --errorIcon: rgb(254, 0, 0);
+  --toggleBackground: rgb(60, 60, 247);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  height: 100vh;
+  background-color: var(--mainBackground);
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: start;
+  height: 10vh;
+  width: 100%;
+}
+.logo{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 10%;
+}
+.App-header nav {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: var(--headerBackground);
+  border-bottom: 2px solid var(--lightBorder);
+}
+.App-header nav li {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+  margin: 0% 5%;
+  color: var(--text);
+  width: 10%;
+  height: 5vh;
+  font-size: 2em;
+}
+.App-header nav li:last-of-type {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 1vh;
+  border: 2px var(--systemBorder) solid;
+  margin: 0% 1%;
+  font-size: 1em;
+}
+.App-header nav li img {
+  margin: 0;
+  padding: 0 0 0 5%;
+  height: 15px;
+}
+.App-header nav li:hover {
+  cursor: pointer;
+}
+.user-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.App-header nav li .user-info img {
+  height: 30px;
+}
+
+.mid-container {
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin: 0;
+  padding: 0;
+}
+.switch-container {
+  margin: 1% 5%;
+  padding: 0.25% 0.5%;
+  border: 2px var(--lightBorder) solid;
+  width: 30%;
+}
+.switch-container li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 15%;
+}
+.switch-container li p {
+  margin: 0;
+}
+
+.toggle-container {
+  width: 40%;
+  height: 1em;
+  border: 1px var(--medBorder) solid;
+  padding: 0;
+  border-radius: 10%;
+  overflow: visible;
+  margin: 5% 0% 5% 0%;
+  background-color: var(--disabledBackground)
+}
+.toggle-container:hover {
+  cursor: pointer;
+}
+.toggle-container .toggle-on,
+.toggle-container .toggle-off {
+  position: relative;
+  height: 125%;
+  width: 30%;
+  border: 2px var(--darkBorder) solid;
+  border-radius: 50%;
+}
+.toggle-container .toggle-on {
+  position: relative;
+  top: -25%;
+  left: -15%;
+  background-color: var(--confirmIcon);
+  transition: all 1s linear;
+}
+.toggle-container .toggle-off {
+  position: relative;
+  top: -25%;
+  left: 80%;
+  background-color: var(--errorIcon);
+  transition: all 1s linear;
+}
+
+.profile-dropdown {
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-between;
+  position: absolute;
+  top: 5%;
+  right: 1%;
+  border: 2px var(--systemBorder) solid;
+  width: 25%;
+  height: 75%;
+  background-color: var(--systemBackground);
+  padding: 1% 2%;
+}
+.profile-dropdown img {
+  height: 2em;
+  width: 2em;
+}
+
+.roomToggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+  margin: 1% 5%;
+  padding: 0 1%;
+  border: 1px var(--darkBorder) solid;
+  width: 50%;
+  height: 70vh;
+  font-size: 1.25em;
+}
+.toggleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 5%;
+}
+.toggleTitle {
+  text-align: center;
+}
+.toggleTitle p:first-of-type {
+  text-decoration: underline;
+}
+.toggleTitle p {
+  margin: 0;
+  padding: 0;
+}
+.roomToggle li {
+  display: flex;
+  align-items: center;
+  width: 3em;
+  height: 1em;
+  border: 1px solid var(--medBorder);
+  border-radius: 25%;
+  margin: 10%;
+  list-style-type: none;
+  overflow: visible;
+}
+.roomToggle .toggleOn,
+.roomToggle .toggleOff {
+  border-radius: 50%;
+  height: 1.5em;
+  width: 1.5em;
+}
+.roomToggle .toggleOn:hover,
+.roomToggle .toggleOff:hover {
+  cursor: pointer;
+}
+.roomToggle .toggleOn {
+  transform: translate(150%);
+  background-color: var(--confirmIcon);
+  transition: all 1s linear;
+}
+.roomToggle .toggleOff {
+  transform: translateX(-50%);
+  background-color: var(--errorIcon);
+  transition: all 1s linear;
+}
+
+.educator-data-grid {
+  display: grid;
+  justify-content: space-evenly;
+  align-content: center;
+  gap: 5%;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
+  height: 20%;
+}
+.room-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.12em var(--medBorder) solid;
+  padding: 1em;
+}
+.room-info p {
+  padding: 0;
+  margin: 0;
+}
+.room-warning {
+  color: var(--errorIcon);
+}
