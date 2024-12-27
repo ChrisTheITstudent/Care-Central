@@ -59,7 +59,9 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 ---
 
 ## 🧪 Testing
-- **Testing Frameworks**: Currently, no tests are implemented.
+- **Testing Frameworks**:
+  - Jest
+  - React testing libary
 
 ---
 
@@ -75,14 +77,22 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 - Feature: Added resposive design.
 - Bugfix: Resolved crashing issue in `api.py` when database connection failed.
 
-<!-- ### [v1.0.1] - YYYY-MM-DD
+<!-- ### [v1.0.2] - YYYY-MM-DD
 - Feature: Introduced sign-in/out functionality for educators.
 - Bugfix: Fixed incorrect ratio calculations for mixed age groups.
+-->
 
-### [v1.0.0] - YYYY-MM-DD
+### [v1.0.0] - 2024-10-25
 - Initial release with core features:
   - Automatic ratio calculations.
-  - Sign-in/out for children. -->
+  - Sign-in/out for children.
+
+### [v1.0.1] - 2024-12-27
+- Testing release
+  - Added unit testing. 
+    bash ```
+    npm run coverage
+    ```
 
 ---
 

@@ -17,11 +17,11 @@ function SwitchList({ username }: SwitchListProps) {
             })
     }, [])
   return (
-      <div className='switch-container'>
+      <div className='switch-container' data-testid='switchList'>
           <p className='switch-header'>My Children</p>
           {
               childList?.map((child: Children) => (
-                  <li key={child.getFirstName()}>
+                  <li key={child.getFirstName()} data-testid="childListElement">
                       <p>{child.getFirstName()}</p>
                       <Toggle
                           id={child.getId()}

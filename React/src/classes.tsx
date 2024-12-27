@@ -5,8 +5,9 @@ export class User {
     private userId: number
     private username: string
     private role?: string
-    private children?: Children[]
-    private profileImage?: Blob
+    private children: Children[] = []
+    private profileImage?: Blob | string
+    private profileImageUrl?: string
     private room?: string
 
     constructor(userId: number, username: string) {
@@ -23,8 +24,16 @@ export class User {
     public setChild(child: Children) {
         this.children?.push(child)
     }
-    public setBlob(blob: Blob) {
-        this.profileImage = blob
+    public setBlob(blob: Blob | string) {
+        if (this.profileImageUrl) {
+            URL.revokeObjectURL(this.profileImageUrl);
+        }
+        this.profileImage = blob;
+        if (blob instanceof Blob) {
+            this.profileImageUrl = URL.createObjectURL(blob);
+        } else {
+            this.profileImageUrl = undefined;
+        }
     }
 
     public getUserId(): number {
@@ -39,7 +48,7 @@ export class User {
     public getChildren(): Children[] | undefined {
         return this.children
     }
-    public getProfileImage(): Blob | undefined {
+    public getProfileImage(): Blob | string | undefined {
         return this.profileImage
     }
     public getRoom(): string | undefined {

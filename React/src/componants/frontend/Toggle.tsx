@@ -19,7 +19,7 @@ function Toggle({ id, initialIsOn }: ToggleProps) {
   
   return (
     <div className='toggle-container' onClick={clickToggle}>
-      <div className={isOn ? "toggle-on" : "toggle-off"} />
+      <div className={isOn ? "toggle-on" : "toggle-off"} data-testid="toggle" />
     </div>
   )
 }

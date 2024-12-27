@@ -6,7 +6,7 @@ interface ProfileProps {
 
 function ProfileDropdown({username}:ProfileProps) {
     return (
-        <div className="profile-dropdown">
+        <div className="profile-dropdown" data-testid="profile-dropdown">
             <p>{username}</p>
             <img src={logoutBtn} alt="Log out"/>
         </div>

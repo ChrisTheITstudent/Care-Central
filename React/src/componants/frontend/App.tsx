@@ -21,30 +21,29 @@ function App() {
   const [showProfileDropdown, setProfileDropdown] = useState<boolean>(false)
 
   useEffect(() => {
-    if (username) {
-      createUser(username)
-        .then((userData) => {
-          setUser(userData)
-          if (userData) {
-            console.log("User data defined in App.tsx")
-          } else {
-            console.log("User data not defined in App.tsx")
-          }
-        })
-        .catch((err) => {
-        console.error("Error creating user:", err)
+    console.log("Creating user")
+    createUser(username)
+      .then((userData) => {
+        setUser(userData)
+        if (userData) {
+          console.log("User data defined in App.tsx")
+        } else {
+          console.log("User data not defined in App.tsx")
+        }
       })
-    }
+      .catch((err) => {
+      console.error("Error creating user:", err)
+    })
   }, [username])
 
   return (
     <div className="App">
       <header className="App-header">
-        <img className='logo' src={logo} alt='' />
+        <img className='logo' src={logo} alt='logo' />
         <nav>
           <li>Home<img src={dropdown} alt=''/></li>
           <li>Dashboard<img src={dropdown} alt='' /></li>
-          <li onClick={() => { setProfileDropdown(prevState => !prevState) }}>
+          <li onClick={() => { setProfileDropdown(prevState => !prevState) }} data-testid="profile-dropdown-click">
             <UserInfo user={user} />
             <img src={dropdown} alt='' />
           </li>

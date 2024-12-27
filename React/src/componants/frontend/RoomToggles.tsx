@@ -27,6 +27,10 @@ function RoomToggles({ room, user }: RoomToggleProps) {
       setCurrentRoom(undefined)
     }
   }, [roomList])
+
+  useEffect(() => {
+    setCurrentRoom(room)
+  }, [room])
   
   const handleToggleRoom = (roomName: string) => {
     setRoomList((prevList) => {
@@ -42,7 +46,7 @@ function RoomToggles({ room, user }: RoomToggleProps) {
   return (
     <div className='roomToggle'>
       
-      <div className="toggleTitle">
+      <div className="toggleTitle" data-testid="roomToggle">
         <p>Current room</p>
         <p>{currentRoom ? currentRoom : "Not signed into a room"}</p>
       </div>

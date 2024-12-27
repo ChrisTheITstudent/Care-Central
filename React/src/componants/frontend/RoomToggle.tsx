@@ -34,6 +34,7 @@ function RoomToggle({ roomName, isSignedIn, userId, onToggle }: RoomToggleProps)
         <div
             className={isSignedIn ? "toggleOn" : "toggleOff"}
             onClick={clickToggle}
+            data-testid={"room-toggle"}
         />
   )
 }

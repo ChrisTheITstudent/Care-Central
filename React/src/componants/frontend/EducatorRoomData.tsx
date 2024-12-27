@@ -30,9 +30,9 @@ function EducatorRoomData({roomList, initalRoomNames, setRoomList}: EducatorData
     }, [])
 
   return (
-      <div className='educator-data-grid'>
+      <div className='educator-data-grid' data-testid="educatorGridContainer">
           {roomList.map((room, index) => (
-              <div className='room-info' key={index}>
+              <div className='room-info' key={index} data-testId='room-info'>
                   <p>{room.getRoomName()}</p>
                   <p>Children: {room.getChildrenCount()}</p>
                   <p className={room.checkCompliance() ? "" : "room-warning"}>Educators: {room.getEducatorCount()}</p>

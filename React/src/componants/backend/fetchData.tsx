@@ -19,6 +19,7 @@ export async function createUser(username: string): Promise<User> {
         fetch(url + "users/" + username)
             .then(response => response.json())
             .then(json => {
+                console.log(json)
                 let newUser = new User(json.id, json.username)
                 if (json.role) {
                     newUser.setRole(json.role)
@@ -34,22 +35,25 @@ export async function createUser(username: string): Promise<User> {
                         .then(response => response.json())
                         .then(json2 => {
                             Object.keys(json2).forEach((key: string) => {
-                                newUser.setChild(json2[key])
+                                const childData = json2[key];
+                                const child = new Children(childData.id, childData.firstName, "", childData.attending);
+                                newUser.setChild(child)
                             })
+                            resolve(newUser)
                         })
+                        .catch(err => {
+                            console.error(err.message)
+                            reject(err)
+                        })
+                } else {
                     resolve(newUser)
                 }
             })
-                    .catch(err => {
-                        console.error(err.message)
-                        reject(err.message)
-                })
-
             .catch(err => {
                 console.error(err.message)
-                reject(err.message)
+                reject(err)
             })
-        })
+    })
 }
 
 export async function toggleChildIsAttending(childId: number): Promise<PostResolved> {
@@ -63,6 +67,10 @@ export async function toggleChildIsAttending(childId: number): Promise<PostResol
             .then(response => response.json())
             .then(json => {
                 resolve(json.message)
+            })
+            .catch(err => {
+                console.error(err.message)
+                reject(new Error(err.message))
             })
     })
 }
@@ -78,7 +86,11 @@ export async function toggleUserRoom(userId: number, room: string | null): Promi
             .then(response => response.json())
             .then(json => {
                 resolve(json.message)
-        })
+            })
+            .catch(err => {
+                console.error(err.message)
+                reject(new Error(err.message))
+            })
     })
 }
 
@@ -118,7 +130,7 @@ export async function createChildrenList(username: string): Promise<Children[]> 
             })
             .catch(err => {
                 console.error("Unable to fetch children for user: " + err.message)
-                reject(err.message)
+                reject(new Error(err.message))
         })
     })
 }
@@ -132,7 +144,8 @@ export async function getChildrenByRoomName(roomName: String): Promise<Children[
         .then(response => response.json())
         .then(json => {
             if (json.error) {
-                resolve(childArray)
+                reject(new Error(json.error))
+                return
             }
             Object.keys(json).forEach((key: string) => {
             if (json[key]["4"] === 1) {
@@ -154,7 +167,7 @@ export async function getChildrenByRoomName(roomName: String): Promise<Children[
     })
     .catch(err => {
         console.error("Unable to fetch children for room: " + err.message)
-        reject(err.message)
+        reject(new Error(err.message))
         })
     })
 }
@@ -168,7 +181,7 @@ export async function getEducatorsByRoomName(roomName: String): Promise<User[]> 
         .then(response => response.json())
         .then(json => {
             if (json.error) {
-                resolve(educatorArray)
+                reject(new Error(json.error))
             }
             Object.keys(json).forEach((key: string) => {
                 educator = new User(json[key][0], json[key]["1"])
@@ -177,8 +190,8 @@ export async function getEducatorsByRoomName(roomName: String): Promise<User[]> 
         resolve(educatorArray)
     })
     .catch(err => {
-        console.error("Unable to fetch children for room: " + err.message)
-        reject(err.message)
+        console.error("Unable to fetch educators for room: " + err.message)
+        reject(new Error(err.message))
         })
     })
 }
