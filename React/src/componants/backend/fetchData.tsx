@@ -14,7 +14,7 @@ interface PostResolved {
 
 const url: string = "http://127.0.0.1:8000/"
 
-export async function createUser(username: string): Promise<User> {
+export async function createUser(username: string | null): Promise<User> {
     return new Promise((resolve, reject) => {
         fetch(url + "users/" + username)
             .then(response => response.json())
@@ -47,6 +47,24 @@ export async function createUser(username: string): Promise<User> {
                         })
                 } else {
                     resolve(newUser)
+                }
+            })
+            .catch(err => {
+                console.error(err.message)
+                reject(err)
+            })
+    })
+}
+
+export async function verifyPassword(username: string, password: string): Promise<Boolean | Error> {
+    return new Promise((resolve, reject) => {
+        fetch(url + "users/login/" + username + "/" + password)
+            .then(response => response.json())
+            .then(json => {
+                if (json.status === "OK") {
+                    resolve(true)
+                } else if (json.status === "FAILED") {
+                    reject(false)
                 }
             })
             .catch(err => {

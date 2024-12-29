@@ -2,6 +2,8 @@
 
 **Care Central** is an all-in-one application designed for the early childhood industry. It aims to simplify administrative tasks and enhance efficiency with features like automatic ratio calculations, sign-in/out for children, and sign-in/out for educators.
 
+A SQLite database is required to run **Care Central**. Database hosting is currently unavaliable through **Care Central**.
+
 ---
 
 ## 🛠️ Technologies Used
@@ -15,6 +17,7 @@
 - Automatic ratio calculations for compliance.
 - Easy sign-in/out for children.
 - Seamless sign-in/out for educators.
+- Secure login/logout.
 
 ---
 
@@ -73,9 +76,10 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 ## 📅 Changelog
 
 ### [Unreleased]
-- Feature: Added detailed README.
-- Feature: Added resposive design.
-- Bugfix: Resolved crashing issue in `api.py` when database connection failed.
+- Feature: Onboarding
+- Feature: Profile
+- Feature: Settings
+- Feature: Help documentation
 
 <!-- ### [v1.0.2] - YYYY-MM-DD
 - Feature: Introduced sign-in/out functionality for educators.
@@ -93,6 +97,10 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
     bash ```
     npm run coverage
     ```
+- Feature: Introduced sign-in/out functionality for educators.
+
+### [v1.0.2] - 2024-12-30
+- Feature: Introduced user logon functionality
 
 ---
 

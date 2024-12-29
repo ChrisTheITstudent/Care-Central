@@ -7,12 +7,15 @@ import UserInfo from './UserInfo';
 import ProfileDropdown from './ProfileDropdown';
 import { Rooms, User } from '../../classes';
 import { createUser } from '../backend/fetchData';
+import { setUserCookies, getUserCookies, removeUserCookies } from '../backend/cookies';
 import RoomToggles from './RoomToggles';
 import EducatorRoomData from './EducatorRoomData';
+import Login from './Login';
 
 function App() {
   // Replace with login
-  const [username, setUsername] = useState<string>("Gina")
+  const [showLogin, setShowLogin] = useState<boolean>(true)
+  const [username, setUsername] = useState<string | null>(null)
 
   const initalRoomNames = ["Babies", "Toddlers", "Pre Kindergarten", "Kindergarten", "PreSchool"]
 
@@ -21,10 +24,39 @@ function App() {
   const [showProfileDropdown, setProfileDropdown] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log("Creating user")
+    if (showLogin) {
+      setProfileDropdown(false)
+      setUser(null)
+      removeUserCookies()
+      setUsername(null)
+      return
+    }
+    
+    const storedUsername = getUserCookies();
+    if (storedUsername) {
+      setUsername(storedUsername)
+    }
+  }
+  , [showLogin])
+
+  useEffect(() => {
+    console.log("Username:", username)
+    if (username === null && !getUserCookies()) {
+      console.log("Username is null and no cookies")
+      return
+    } else if (username === null && getUserCookies()) {
+      console.log("Username is null but cookies exist")
+      removeUserCookies()
+      if (showLogin) {
+        setShowLogin(false)
+      }
+    } else {
+      console.log("Username is defined")
+    }
     createUser(username)
       .then((userData) => {
         setUser(userData)
+        setUserCookies(userData)
         if (userData) {
           console.log("User data defined in App.tsx")
         } else {
@@ -49,11 +81,12 @@ function App() {
           </li>
         </nav>
       </header>
-      {showProfileDropdown ? <ProfileDropdown username={username}/> : null}
+      {showLogin ? <Login setShowLogin={setShowLogin} setUsername={setUsername} setProfileDropdown={setProfileDropdown} /> : null}
+      {showProfileDropdown && username ? <ProfileDropdown username={username} setUserName={setUsername} setShowLogin={setShowLogin} setProfileDropdown={setProfileDropdown} /> : null}
       <div className='mid-container'>
         <div className='Right-side-bar'>
-          {user?.getRole() === 'Family' ? <SwitchList username={username} /> : null}
-          {user?.getRole() === 'educator' ? <RoomToggles room={user.getRoom()} user={user} /> : null}
+          {user?.getRole() === 'Family' && username ? <SwitchList username={username} /> : null}
+          {user?.getRole() === 'educator' && username ? <RoomToggles room={user.getRoom()} user={user} /> : null}
         </div>
         <div className='Middle-info'>
           {user?.getRole() === 'educator' ? <EducatorRoomData roomList={roomList} initalRoomNames={initalRoomNames} setRoomList={setRoomList} /> : null}

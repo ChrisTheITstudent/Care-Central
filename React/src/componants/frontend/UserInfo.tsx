@@ -42,7 +42,7 @@ function UserInfo({user}: UserInfoProps) {
     return (
         <div className="user-info" data-testid="user-info">
             <img src={profileImage || defaultUser} alt="Profile"/>
-            <p>{user ? user.getUsername() : "Loading user..."}</p>
+            <p>{user ? user.getUsername() : "Not logged in"}</p>
         </div>
   )
 }

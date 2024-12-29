@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import sqlite3 as sql
 import base64
+import bcrypt
+from typing import Optional
 
 app = FastAPI()
 app.add_middleware(
@@ -38,6 +40,77 @@ def read_user(username: str):
     return {
         "username": 'Error',
     }
+
+@app.post("/users/register")
+def register_user(username: str, password: str, role: str, profileImage: str | None, room: str | None):
+    con = sql.connect("../CareCentral.db")
+    cur = con.cursor()
+
+    hashed_password = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
+    query = "INSERT INTO Users (username, password, role, profileImage, room) VALUES (?, ?, ?, ?, ?)"
+
+    cur.execute(query, (username, hashed_password, role, profileImage, room))
+    con.commit()
+    con.close()
+
+    return {
+        "status": "OK",
+        "message": "User registered successfully"
+    }
+
+@app.patch("/users/{userId}/update")
+def update_user(userId: int, username: Optional[str] = None, password: Optional[str] = None, role: Optional[str] = None, profileImage: Optional[str] = None, room: Optional[str] = None):
+    con = sql.connect("../CareCentral.db")
+    cur = con.cursor()
+    # Check id for injection
+
+    data = get_user_by_id(userId)
+    if "error" in data:
+        return {
+            "status": "FAILED",
+            "message": "Unable to return data"
+    }
+
+    if password:
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode("utf-8")
+
+    if not username:
+        username = data["username"]
+    if not role:
+        role = data["role"]
+    if not profileImage:
+        profileImage = data["profileImage"]
+    if not room:
+        room = data["room"]
+
+    query = "UPDATE Users SET username = ?, password = ?, role = ?, profileImage = ?, room = ? WHERE id = ?"
+    cur.execute(query, (username, hashed_password, role, profileImage, room, data["id"]))
+    con.commit()
+    con.close()
+
+    return {
+        "status": "OK",
+        "message": "User updated successfully"
+    }
+
+@app.get("/users/login/{username}/{password}")
+def login_user(username: str, password: str):
+    con = sql.connect("../CareCentral.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Users WHERE username = ?", (username,))
+    stored_hashed_password = cur.fetchone()[2]
+    con.close()
+
+    if bcrypt.checkpw(password.encode("utf-8"), stored_hashed_password.encode("utf-8")):
+        return {
+            "status": "OK",
+            "message": "Login successful"
+        }
+    else:
+        return {
+            "status": "FAILED",
+            "message": "Login failed"
+        }
 
 @app.get("/user/findById/{userId}")
 def get_user_by_id(userId: int):
