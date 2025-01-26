@@ -3,14 +3,14 @@ import { getChildrenByRoomName, getEducatorsByRoomName } from "./componants/back
 
 export class User {
     private userId: number
-    private username: string
+    private username: string | null
     private role?: string
     private children: Children[] = []
     private profileImage?: Blob | string
     private profileImageUrl?: string
     private room?: string
 
-    constructor(userId: number, username: string) {
+    constructor(userId: number, username: string | null) {
         this.username = username
         this.userId = userId
     }
@@ -39,7 +39,7 @@ export class User {
     public getUserId(): number {
         return this.userId
     }
-    public getUsername(): string {
+    public getUsername(): string | null {
         return this.username
     }
     public getRole(): string | undefined {

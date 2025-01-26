@@ -13,6 +13,7 @@ function EducatorRoomData({roomList, initalRoomNames, setRoomList}: EducatorData
     useEffect(() => {
         const rooms = initalRoomNames.map(roomName => new Rooms(roomName))
         const loadRoomsData = async () => {
+            
             try {
                 await Promise.all(
                     rooms.map(async (room) => {
@@ -27,7 +28,9 @@ function EducatorRoomData({roomList, initalRoomNames, setRoomList}: EducatorData
         }
 
         loadRoomsData();
-    }, [])
+    }, [initalRoomNames, setRoomList])
+
+    console.log(roomList)
 
   return (
       <div className='educator-data-grid' data-testid="educatorGridContainer">

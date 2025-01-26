@@ -374,6 +374,13 @@
   width: 40%;
   font-size: 2em;
 }
+.login-container .close-icon {
+  position: fixed;
+  top: 24%;
+  right: 7%;
+  height: 2em;
+  width: 2em;
+}
 
 @media (max-width: 576px) {
   .logo {

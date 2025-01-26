@@ -1,5 +1,6 @@
 import React from 'react'
 import { verifyPassword } from '../backend/fetchData'
+import closeIcon from '../../images/closeIcon.png'
 
 interface LoginProps {
     setShowLogin: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,13 +34,14 @@ function Login({ setShowLogin, setUsername, setProfileDropdown }: LoginProps) {
   }
 
   return (
-      <div className='login-container'>
+      <div className='login-container' data-testid={'login-container'}>
         <h1>Login</h1>
+        <img src={closeIcon} alt='Close' className='close-icon' data-testid={"login-close"} onClick={() => setShowLogin(false)} />
         <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor='username'>Username</label>
-          <input type='text' id='username' name='username' />
+          <input type='text' id='username' name='username' data-testid={'username'} />
           <label htmlFor='password'>Password</label>
-          <input type='password' id='password' name='password' />
+          <input type='password' id='password' name='password' data-testid={'password'} />
           <button type='submit'>Submit</button>
         </form>
       </div>

@@ -12,15 +12,20 @@ import RoomToggles from './RoomToggles';
 import EducatorRoomData from './EducatorRoomData';
 import Login from './Login';
 
-function App() {
-  // Replace with login
-  const [showLogin, setShowLogin] = useState<boolean>(true)
-  const [username, setUsername] = useState<string | null>(null)
+interface AppProps {
+  showLoginProp?: boolean
+  userProp?: User | null
+  setShowLoginProp?: (showlogin: boolean) => void
+}
+
+function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProps) {
+  const [showLogin, setShowLogin] = useState<boolean>(showLoginProp)
+  const [username, setUsername] = useState<string | null>(userProp ? userProp.getUsername() : null)
 
   const initalRoomNames = ["Babies", "Toddlers", "Pre Kindergarten", "Kindergarten", "PreSchool"]
 
   const [roomList, setRoomList] = useState<Rooms[]>([])
-  const [user, setUser] = useState<User | null>()
+  const [user, setUser] = useState<User | null>(userProp)
   const [showProfileDropdown, setProfileDropdown] = useState<boolean>(false)
 
   useEffect(() => {
@@ -48,24 +53,23 @@ function App() {
       console.log("Username is null but cookies exist")
       removeUserCookies()
       if (showLogin) {
-        setShowLogin(false)
+        setShowLoginProp? setShowLoginProp(false) : setShowLogin(false)
       }
     } else {
-      console.log("Username is defined")
-    }
-    createUser(username)
-      .then((userData) => {
-        setUser(userData)
-        setUserCookies(userData)
-        if (userData) {
-          console.log("User data defined in App.tsx")
-        } else {
-          console.log("User data not defined in App.tsx")
-        }
-      })
+      createUser(username)
+        .then((userData) => {
+          setUser(userData)
+          setUserCookies(userData)
+          if (userData) {
+            console.log("User data defined in App.tsx")
+          } else {
+            console.log("User data not defined in App.tsx")
+          }
+        })
       .catch((err) => {
       console.error("Error creating user:", err)
-    })
+      })
+    }
   }, [username])
 
   return (
@@ -75,7 +79,15 @@ function App() {
         <nav>
           <li>Home<img src={dropdown} alt=''/></li>
           <li>Dashboard<img src={dropdown} alt='' /></li>
-          <li onClick={() => { setProfileDropdown(prevState => !prevState) }} data-testid="profile-dropdown-click">
+          <li onClick={() => {
+            setProfileDropdown((prevState) => {
+              console.log("Profile dropdown clicked")
+              console.log("Username:", username)
+              console.log("Show login:", showLogin)
+              console.log("User:", user)
+              return !prevState
+            })
+          }} data-testid="profile-dropdown-click">
             <UserInfo user={user} />
             <img src={dropdown} alt='' />
           </li>
