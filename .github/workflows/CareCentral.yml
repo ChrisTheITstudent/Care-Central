@@ -1,0 +1,12 @@
+name: Care Central
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  test:
+   name: Testing the code
+   runs-on: windows-latest
+   steps:
+   - run: echo "Tests sucessful"

@@ -69,7 +69,7 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 ---
 
 ## ⚠️ Known Issues
-- No known issues at the moment.
+- Date of birth does not get automatically set for children if user has Family role
 
 ---
 
@@ -101,6 +101,15 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 
 ### [v1.0.2] - 2024-12-30
 - Feature: Introduced user logon functionality
+
+### [v1.0.3] - YYYY-MM-DD
+- Feature: Unit testing added for all relevant functions
+
+<!-- ### [v1.0.4] - YYYY-MM-DD
+- Feature: Introduced sign-in/out functionality for educators.
+- Bugfix: Throws TypeError that requires a bytes-like object but recieves a string when decoding hashed password on login
+- Bugfix: Loops fetch calls when logging in as educator
+-->
 
 ---
 
