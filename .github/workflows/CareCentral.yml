@@ -9,4 +9,4 @@ jobs:
    name: Testing the code
    runs-on: windows-latest
    steps:
-   - run: startup.bat
+   - run: npm test
