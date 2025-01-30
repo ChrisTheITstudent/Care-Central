@@ -6,12 +6,20 @@ jobs:
   test_using_jest:
     runs-on: ubuntu-latest
     steps:
-      - name: Jest GitHub Action
-        env:
-          GITGUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # You may pin to the exact commit or the version.
-  # uses: willcaul/jest-github-action@1530da6bb81a1593734e7f175bd872f992f0882e
-        uses: willcaul/jest-github-action@v1.0.2
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Ensures repo is available
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-    # The test command to run
+          node-version: 18  # Adjust to your project's Node.js version
+
+      - name: Install Dependencies
+        run: npm install  # Ensures all dependencies are installed
+
+      - name: Run Jest Tests
+        uses: willcaul/jest-github-action@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
           test-command: npm test
