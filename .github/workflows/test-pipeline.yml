@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Jest GitHub Action
+        env:
+          GITGUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # You may pin to the exact commit or the version.
   # uses: willcaul/jest-github-action@1530da6bb81a1593734e7f175bd872f992f0882e
         uses: willcaul/jest-github-action@v1.0.2
         with:
     # The test command to run
           test-command: npm test
-        env:
-          GITGUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
