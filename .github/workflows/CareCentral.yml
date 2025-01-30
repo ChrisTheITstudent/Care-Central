@@ -9,4 +9,8 @@ jobs:
    name: Testing the code
    runs-on: windows-latest
    steps:
+<<<<<<< HEAD
    - run: npm test
+=======
+   - run: echo "Tests sucessful"
+>>>>>>> parent of ce7b2502 (CI addition)
