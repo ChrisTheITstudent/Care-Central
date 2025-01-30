@@ -1,0 +1,14 @@
+            - name: Jest GitHub Action
+  # You may pin to the exact commit or the version.
+  # uses: willcaul/jest-github-action@1530da6bb81a1593734e7f175bd872f992f0882e
+  uses: willcaul/jest-github-action@v1.0.2
+  with:
+    # The test command to run
+    test-command: npm test
+    # Subdirectory to run tests in
+    working-directory: # optional, default is 
+    # Comment PRs with code coverage
+    coverage-comment: false
+    # Only run tests on changed files (over base branch)
+    changes-only: # optional, default is false
+          
