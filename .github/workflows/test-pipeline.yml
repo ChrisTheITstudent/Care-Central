@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: 18  # Adjust to your project's Node.js version
 
+      - name: Debug Working Directory
+        run: ls -R        
+
       - name: Install Dependencies
         run: npm install  # Ensures all dependencies are installed
         working-directory: Care-Central/React
