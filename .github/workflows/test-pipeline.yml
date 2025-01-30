@@ -16,6 +16,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm install  # Ensures all dependencies are installed
+        working-directory: Care-Central\React
 
       - name: Run Jest Tests
         uses: willcaul/jest-github-action@v1.0.2
@@ -23,3 +24,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           test-command: npm test
+          working-directory: Care-Central\React
