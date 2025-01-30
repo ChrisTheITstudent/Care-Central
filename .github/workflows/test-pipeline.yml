@@ -12,4 +12,6 @@ jobs:
         uses: willcaul/jest-github-action@v1.0.2
         with:
     # The test command to run
-          test-command: npm test         
+          test-command: npm test
+        env:
+          GITGUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
