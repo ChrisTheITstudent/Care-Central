@@ -13,5 +13,4 @@ jobs:
         with:
     # The test command to run
           test-command: npm test
-        env:
           GITGUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
