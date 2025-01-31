@@ -11,7 +11,7 @@ on:
 jobs:
   test_using_jest:
     runs-on: ubuntu-latest
-    steps:
+    steps:        
       - name: Checkout Repository
         uses: actions/checkout@v4  # Ensures repo is available
 
@@ -25,6 +25,14 @@ jobs:
 
       - name: Install Dependencies
         run: npm install  # Ensures all dependencies are installed
+        working-directory: React
+
+      - name: Verify Installed Packages
+        run: npm list --depth=0
+        working-directory: React
+
+      - name: Fix Permissions
+        run: chmod +x node_modules/.bin/react-scripts
         working-directory: React
 
       - name: Run Jest Tests
