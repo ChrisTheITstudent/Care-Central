@@ -11,6 +11,10 @@ interface PostResolved {
     "Status": string,
     "Message": string
 }
+interface VerificationData {
+    "username": String,
+    "password": String
+}
 
 const url: string = "http://127.0.0.1:8000/"
 
@@ -56,9 +60,9 @@ export async function createUser(username: string | null): Promise<User> {
     })
 }
 
-export async function verifyPassword(username: string, password: string): Promise<Boolean | Error> {
+export async function verifyPassword(data: VerificationData): Promise<Boolean | Error> {
     return new Promise((resolve, reject) => {
-        fetch(url + "users/login/" + username + "/" + password)
+        fetch(url + "users/login/" + data.username + "/" + data.password)
             .then(response => response.json())
             .then(json => {
                 if (json.status === "OK") {

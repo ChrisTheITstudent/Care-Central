@@ -9,13 +9,19 @@ interface ProfileProps {
     setUserName: (username: string | null) => void
     setShowLogin: (showLogin: boolean) => void
     setProfileDropdown: (profileDropdown: boolean) => void
+    setShowProfile: (showProfile: boolean) => void
 }
 
-function ProfileDropdown({ username, setUserName, setShowLogin, setProfileDropdown }: ProfileProps) {
+function ProfileDropdown({ username, setUserName, setShowLogin, setProfileDropdown, setShowProfile }: ProfileProps) {
     const logout = async () => {
         removeUserCookies()
         setUserName(null)
         setShowLogin(true)
+        setProfileDropdown(false)
+    }
+
+    const handleProfileClick = () => {
+        setShowProfile(true)
         setProfileDropdown(false)
     }
 
@@ -25,7 +31,7 @@ function ProfileDropdown({ username, setUserName, setShowLogin, setProfileDropdo
             <h2>{username}</h2>
             <span className="sperator" />
             <ul>
-                <li><img className="profile-icon" src={profileIcon} /> Profile</li>
+                <li onClick={handleProfileClick}><img className="profile-icon" src={profileIcon} /> Profile</li>
                 <li><img className="settings-icon" src={settingsIcon} />Settings</li>
                 <li><img className="help-icon" src={helpIcon} />Help</li>
             </ul>

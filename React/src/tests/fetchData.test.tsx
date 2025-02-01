@@ -2,6 +2,11 @@ import * as fetchData from '../componants/backend/fetchData';
 import { User } from '../classes';
 import { waitFor } from '@testing-library/react';
 
+const mockVerificationData = {
+    "username": "TestUser",
+    "password": "TestPassword"
+}
+
 global.fetch = jest.fn(() => {
     return Promise.resolve({
         ok: true,
@@ -50,7 +55,7 @@ describe('fetchData', () => {
         })
 
         waitFor(async () => {
-            expect(fetchData.verifyPassword("TestUser", "TestPassword")).toBe(true)
+            expect(fetchData.verifyPassword(mockVerificationData)).toBe(true)
         })
     })
     test('verifies incorrect password', async () => {
@@ -76,7 +81,7 @@ describe('fetchData', () => {
         })
 
         waitFor(async () => {
-            expect(fetchData.verifyPassword("TestUser", "TestPassword")).rejects.toBe(false)
+            expect(fetchData.verifyPassword(mockVerificationData)).rejects.toBe(false)
         })
     })
 
@@ -86,7 +91,7 @@ describe('fetchData', () => {
         })
 
         waitFor( async () => {
-            await expect(fetchData.verifyPassword("testUser", "testPassword")).rejects.toEqual("error")
+            await expect(fetchData.verifyPassword(mockVerificationData)).rejects.toEqual("error")
         })
     })
 

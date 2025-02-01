@@ -11,6 +11,7 @@ import { setUserCookies, getUserCookies, removeUserCookies } from '../backend/co
 import RoomToggles from './RoomToggles';
 import EducatorRoomData from './EducatorRoomData';
 import Login from './Login';
+import Profile from './Profile';
 
 interface AppProps {
   showLoginProp?: boolean
@@ -28,11 +29,14 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
   const [user, setUser] = useState<User | null>(userProp)
   const [showProfileDropdown, setProfileDropdown] = useState<boolean>(false)
 
+  const [showProfile, setShowProfile] = useState<boolean>(false)
+
   useEffect(() => {
     if (showLogin) {
       setProfileDropdown(false)
       setUser(null)
       removeUserCookies()
+      console.log("Cookies removed in showLogin effect")
       setUsername(null)
       return
     }
@@ -52,6 +56,7 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
     } else if (username === null && getUserCookies()) {
       console.log("Username is null but cookies exist")
       removeUserCookies()
+      console.log("Cookies removed in username effect")
       if (showLogin) {
         setShowLoginProp? setShowLoginProp(false) : setShowLogin(false)
       }
@@ -94,18 +99,22 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
         </nav>
       </header>
       {showLogin ? <Login setShowLogin={setShowLogin} setUsername={setUsername} setProfileDropdown={setProfileDropdown} /> : null}
-      {showProfileDropdown && username ? <ProfileDropdown username={username} setUserName={setUsername} setShowLogin={setShowLogin} setProfileDropdown={setProfileDropdown} /> : null}
+      {showProfileDropdown && username ? <ProfileDropdown username={username} setUserName={setUsername} setShowLogin={setShowLogin} setProfileDropdown={setProfileDropdown} setShowProfile={setShowProfile} /> : null}
       <div className='mid-container'>
-        <div className='Right-side-bar'>
-          {user?.getRole() === 'Family' && username ? <SwitchList username={username} /> : null}
-          {user?.getRole() === 'educator' && username ? <RoomToggles room={user.getRoom()} user={user} /> : null}
-        </div>
-        <div className='Middle-info'>
-          {user?.getRole() === 'educator' ? <EducatorRoomData roomList={roomList} initalRoomNames={initalRoomNames} setRoomList={setRoomList} /> : null}
-        </div>
-        <div className='Left-side-bar'>
+        {showProfile ? <Profile user={user ? user : null}  /> : 
+          <>
+          <div className='Right-side-bar'>
+            {user?.getRole() === 'Family' && username ? <SwitchList username={username} /> : null}
+            {user?.getRole() === 'educator' && username ? <RoomToggles room={user.getRoom()} user={user} /> : null}
+          </div>
+          <div className='Middle-info'>
+            {user?.getRole() === 'educator' ? <EducatorRoomData roomList={roomList} initalRoomNames={initalRoomNames} setRoomList={setRoomList} /> : null}
+          </div>
+          <div className='Left-side-bar'>
 
-        </div>
+          </div>
+          </>
+        }
       </div>
     </div>
   );

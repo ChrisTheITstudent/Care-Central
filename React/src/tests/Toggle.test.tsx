@@ -31,14 +31,16 @@ test("Clicking on the toggle changes the class from toggle on to toggle off", as
 });
 
 test("Clicking on the toggle changes the class from toggle off to toggle on", async () => {
-  const mockFetch = jest.spyOn(fetchData, "toggleChildIsAttending")
-    .mockResolvedValue({
-      Status: "OK",
-      Message: "Child attendance toggled"
-    });
+  const mockFetch = jest
+    .spyOn(fetchData, "toggleChildIsAttending")
+    .mockImplementation(() => Promise.resolve({ Status: "OK", Message: "Child attendance toggled" }));
+  
     render(<Toggle id={1} initialIsOn={false} />);
+    
     const toggle = screen.getByTestId("toggle");
+    
     toggle.click();
+    
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalled()
       expect(toggle).toHaveClass("toggle-on");

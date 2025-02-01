@@ -2,7 +2,8 @@ export const getMockProfileProps = () => ({
     username: 'Sally',
     setUserName: jest.fn(),
     setShowLogin: jest.fn(),
-    setProfileDropdown: jest.fn()
+    setProfileDropdown: jest.fn(),
+    setShowProfile: jest.fn()
 })
 
 export const getMockRoomToggleProps = () => ({
