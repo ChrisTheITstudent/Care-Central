@@ -27,7 +27,11 @@ function EducatorRoomData({roomList, initalRoomNames, setRoomList}: EducatorData
             }
         }
 
-        loadRoomsData();
+        loadRoomsData()
+
+        const intervalId = setInterval(loadRoomsData, 300000)
+
+        return () => clearInterval(intervalId)
     }, [initalRoomNames, setRoomList])
 
     console.log(roomList)

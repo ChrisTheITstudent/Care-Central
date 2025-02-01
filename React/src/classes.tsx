@@ -1,4 +1,3 @@
-import { error } from "console"
 import { getChildrenByRoomName, getEducatorsByRoomName } from "./componants/backend/fetchData"
 
 export class User {
@@ -69,6 +68,7 @@ export class Children {
         this.firstName = firstName
         this.lastName = lastName
         this.attending = isAttending
+        
     }
 
     public setDateOfBirth(day: number, month: number, year: number) {

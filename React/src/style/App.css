@@ -381,6 +381,78 @@
   height: 2em;
   width: 2em;
 }
+.login-container .close-icon:hover {
+  cursor: pointer;
+}
+
+.profile-container {
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+.profile-container h1 {
+  margin: 0.15em 0 1em 0;
+  padding: 0;
+  text-align: center;
+  font-size: 5em;
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  text-align: center;
+  width: 50%;
+  align-self: center;
+  column-gap: 0.25em;
+  row-gap: 1px;
+  background-color: var(--darkBorder);
+  border: 1px solid var(--darkBorder);
+}
+.profile-grid p {
+  height: 100%;
+  background-color: var(--mainBackground);
+  font-size: 3em;
+  margin: 0;
+}
+.profile-grid p:nth-child(2n) {
+  text-align: center;
+}
+
+.children-container {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  overflow-y: scroll;
+  margin-left: auto;
+  margin-right: auto;
+  height: 15em;
+  border: 1px solid var(--darkBorder);
+}
+.child-profile-grid {
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 0.5em 0 0.5em 0;
+  text-align: center;
+  width: 75%;
+  min-height: 13em;
+  align-self: center;
+  column-gap: 0.25em;
+  row-gap: 1px;
+  background-color: var(--lightBorder);
+  border: 1px solid var(--lightBorder);
+}
+.child-profile-grid p {
+  height: 100%;
+  background-color: var(--mainBackground);
+  font-size: 2em;
+  margin: 0;
+}
+.child-profile-grid p:nth-child(2n) {
+  text-align: center;
+}
 
 @media (max-width: 576px) {
   .logo {
@@ -798,5 +870,42 @@
     height: 2em;
     width: 2em;
     margin: 0 4% 0 2%;
+  }
+
+  .login-container {
+    margin-top: 5%;
+    width: 50%;
+  }
+  .login-container h1 {
+    font-size: 3.5em;
+    margin-bottom: 1em;
+  }
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1% 0;
+    padding: 0;
+    width: 80%;
+  }
+  .login-container form input {
+    margin: 0.5% 0 5% 0;
+    padding: 0.5% 1%;
+    width: 50%;
+    font-size: 1em;
+  }
+  .login-container form label {
+    margin: 0.5% 0;
+    padding: 0.5% 1%;
+    font-size: 1.5em;
+  }
+  .login-container form button {
+    margin: 2.5% 0;
+    padding: 0.5% 1%;
+    font-size: 1em;
+  }
+  .login-container .close-icon {
+    right: 21%;
   }
 }

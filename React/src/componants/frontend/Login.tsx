@@ -16,8 +16,12 @@ function Login({ setShowLogin, setUsername, setProfileDropdown }: LoginProps) {
     const form = e.currentTarget as HTMLFormElement
     const username = form.elements.namedItem('username') as HTMLInputElement
     const password = form.elements.namedItem('password') as HTMLInputElement
+    const dataVerification = {
+      username: username.value,
+      password: password.value
+    }
     
-    verifyPassword(username.value, password.value)
+    verifyPassword(dataVerification)
       .then((json) => {
         if (json) {
           setUsername(username.value)
@@ -39,9 +43,9 @@ function Login({ setShowLogin, setUsername, setProfileDropdown }: LoginProps) {
         <img src={closeIcon} alt='Close' className='close-icon' data-testid={"login-close"} onClick={() => setShowLogin(false)} />
         <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor='username'>Username</label>
-          <input type='text' id='username' name='username' data-testid={'username'} />
+          <input type='text' id='username' name='username' data-testid={'username'} autoComplete='username' />
           <label htmlFor='password'>Password</label>
-          <input type='password' id='password' name='password' data-testid={'password'} />
+          <input type='password' id='password' name='password' data-testid={'password'} autoComplete='current-password' />
           <button type='submit'>Submit</button>
         </form>
       </div>
