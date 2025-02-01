@@ -34,7 +34,15 @@ jobs:
       - name: Fix Permissions
         run: chmod +x node_modules/.bin/react-scripts
         working-directory: React
-
+        
       - name: Run Jest Tests
         run: npm test -- --json --outputFile=jest.results.json
         working-directory: React
+
+      - name: Inspect Permissions
+        run: ls -l
+        working-directory: React
+
+
+      - name: Output Jest Results
+        run: cat jest.results.json
