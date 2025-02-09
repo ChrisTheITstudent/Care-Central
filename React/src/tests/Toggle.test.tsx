@@ -23,8 +23,10 @@ test("Class of toggle-off is applied when initialIsOn is false", () => {
 
 test("Clicking on the toggle changes the class from toggle on to toggle off", async () => {
     render(<Toggle id={1} initialIsOn={true} />);
-    const toggle = screen.getByTestId("toggle");
+  const toggle = screen.getByTestId("toggle");
+  act(() => {
     toggle.click();
+  })
     
     await waitFor(() => {
         expect(toggle).toHaveClass("toggle-off");
