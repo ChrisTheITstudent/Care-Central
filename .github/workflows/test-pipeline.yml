@@ -40,7 +40,7 @@ jobs:
         working-directory: React
         
       - name: Run Jest Tests
-        run: npm test -- --json --outputFile=jest.results.json
+        run: npm test --maxWorkers=1 --json --outputFile=jest.results.json
         working-directory: React
 
       - name: Inspect Permissions
