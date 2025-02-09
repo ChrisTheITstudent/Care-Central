@@ -129,7 +129,7 @@ describe('Mid container rendering', () => {
   })
 
   test('Renders EducatorData when user is an educator', async () => {
-    jest.spyOn(fetchData, 'createUser').mockResolvedValueOnce(mockEducatorUser)
+    jest.spyOn(fetchData, 'createUser').mockResolvedValue(mockEducatorUser)
     render(<App showLoginProp={false} userProp={mockEducatorUser} />)
     expect(await screen.findByTestId('educator-data')).toBeInTheDocument()
   })

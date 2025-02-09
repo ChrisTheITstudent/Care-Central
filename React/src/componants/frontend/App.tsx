@@ -32,12 +32,23 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
   const [showProfile, setShowProfile] = useState<boolean>(false)
 
   useEffect(() => {
+    if (userProp) {
+      setShowLogin(false)
+      setUser(userProp)
+      setUsername(userProp.getUsername())
+    }
+  }, [userProp])
+
+  useEffect(() => {
     if (showLogin) {
       setProfileDropdown(false)
-      setUser(null)
-      removeUserCookies()
-      console.log("Cookies removed in showLogin effect")
-      setUsername(null)
+      if (!userProp) {
+        setUser(null)
+        removeUserCookies()
+        console.log("Cookies removed in showLogin effect")
+        setUsername(null)
+      }
+      
       return
     }
     

@@ -76,13 +76,13 @@ describe('Navigation', () => {
   })
 
   test('Profile dropdown renders when clicked', () => {
-    render(<App />);
+    render(<App showLoginProp={false} userProp={mockEducatorUser} />);
     fireEvent.click(screen.getByTestId('profile-dropdown-click'));
     expect(screen.getByTestId('profile-dropdown')).toBeInTheDocument();
   })
 
   test('Profile dropdown closes when clicked again', () => {
-    render(<App />);
+    render(<App showLoginProp={false} userProp={mockEducatorUser} />);
     fireEvent.click(screen.getByTestId('profile-dropdown-click'));
     fireEvent.click(screen.getByTestId('profile-dropdown-click'));
     expect(screen.queryByTestId('profile-dropdown')).toBeNull();
@@ -92,19 +92,19 @@ describe('Navigation', () => {
 describe('Mid container rendering', () => {
   test('Renders SwitchList when user is a family', async () => {
     jest.spyOn(fetchData, 'createUser').mockResolvedValueOnce(mockFamilyUser)
-    render(<App />);
+    render(<App showLoginProp={false} userProp={mockEducatorUser} />);
     expect(await screen.findByTestId('switch-list')).toBeInTheDocument()
   })
 
   test('Renders RoomToggles when user is an educator', async () => {
-    jest.spyOn(fetchData, 'createUser').mockResolvedValueOnce(mockEducatorUser)
-    render(<App />);
+    jest.spyOn(fetchData, 'createUser').mockResolvedValue(mockEducatorUser)
+    render(<App showLoginProp={false} userProp={mockEducatorUser} />);
     expect(await screen.findByTestId('room-toggles')).toBeInTheDocument()
   })
 
   test('Renders EducatorData when user is an educator', async () => {
     jest.spyOn(fetchData, 'createUser').mockResolvedValueOnce(mockEducatorUser)
-    render(<App />)
+    render(<App showLoginProp={false} userProp={mockEducatorUser} />)
     expect(await screen.findByTestId('educator-data')).toBeInTheDocument()
   })
 })
