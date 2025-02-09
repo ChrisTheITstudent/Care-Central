@@ -22,28 +22,25 @@ test("Class of toggle-off is applied when initialIsOn is false", () => {
 });
 
 test("Clicking on the toggle changes the class from toggle on to toggle off", async () => {
-    render(<Toggle id={1} initialIsOn={true} />);
+  render(<Toggle id={1} initialIsOn={true} />);
   const toggle = screen.getByTestId("toggle");
   act(() => {
     toggle.click();
   })
     
-    await waitFor(() => {
-        expect(toggle).toHaveClass("toggle-off");
-    })
+  await waitFor(() => {
+      expect(toggle).toHaveClass("toggle-off");
+  })
 });
 
 test("Clicking on the toggle changes the class from toggle off to toggle on", async () => {
-  jest.spyOn(fetchData, "toggleChildIsAttending").mockImplementation(() => Promise.resolve({ Status: "OK", Message: "Child attendance toggled" }));
-  
-    render(<Toggle id={1} initialIsOn={false} />);
-    
-    const toggle = screen.getByTestId("toggle");
+  render(<Toggle id={1} initialIsOn={false} />);
+  const toggle = screen.getByTestId("toggle");
   act(() => {
     toggle.click();
-  })  
-  
+  })
+    
   await waitFor(() => {
-    expect(toggle).toHaveClass("toggle-on");
+      expect(toggle).toHaveClass("toggle-on");
   })
 });
