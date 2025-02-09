@@ -80,6 +80,7 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 - Feature: Profile
 - Feature: Settings
 - Feature: Help documentation
+- Feature: Allow educators to move older children to younger rooms. Show these in the UI
 
 <!-- ### [v1.0.2] - YYYY-MM-DD
 - Feature: Introduced sign-in/out functionality for educators.
@@ -94,22 +95,22 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 ### [v1.0.1] - 2024-12-27
 - Testing release
   - Added unit testing. 
-    bash ```
+    bash
     npm run coverage
-    ```
+
 - Feature: Introduced sign-in/out functionality for educators.
 
 ### [v1.0.2] - 2024-12-30
 - Feature: Introduced user logon functionality
 
-### [v1.0.3] - YYYY-MM-DD
+### [v1.0.3] - 2025-01-24
 - Feature: Unit testing added for all relevant functions
 
-<!-- ### [v1.0.4] - YYYY-MM-DD
-- Feature: Introduced sign-in/out functionality for educators.
+### [v1.0.4] - 2025-02-09
+- Feature: CI pipeline through GitHub Actions introduced
 - Bugfix: Throws TypeError that requires a bytes-like object but recieves a string when decoding hashed password on login
 - Bugfix: Loops fetch calls when logging in as educator
--->
+- Testing: Jest tests introduced into CI pipeline
 
 ---
 
