@@ -48,4 +48,4 @@ jobs:
         working-directory: React
 
       - name: Output Jest Results
-        run: cat jest.results.json
+        run: cat React/jest.results.json
