@@ -1,6 +1,7 @@
 import Toggle from "../componants/frontend/Toggle";
 import { render, screen, waitFor } from "@testing-library/react";
 import * as fetchData from "../componants/backend/fetchData";
+import { act } from "react";
 
 test("Toggle component renders", () => {
   render(<Toggle id={1} initialIsOn={true} />);
@@ -38,11 +39,12 @@ test("Clicking on the toggle changes the class from toggle off to toggle on", as
     render(<Toggle id={1} initialIsOn={false} />);
     
     const toggle = screen.getByTestId("toggle");
-    
+  act(() => {
     toggle.click();
-    
-    await waitFor(() => {
-      expect(mockFetch).toHaveBeenCalled()
-      expect(toggle).toHaveClass("toggle-on");
-    })
+  })  
+  
+  await waitFor(() => {
+    expect(mockFetch).toHaveBeenCalled()
+    expect(toggle).toHaveClass("toggle-on");
+  })
 });

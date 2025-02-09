@@ -86,14 +86,14 @@ export async function toggleChildIsAttending(childId: number): Promise<PostResol
                 'Content-Type': 'application/json',
             }
         })
-            .then(response => response.json())
-            .then(json => {
-                resolve(json.message)
-            })
-            .catch(err => {
-                console.error(err.message)
-                reject(new Error(err.message))
-            })
+        .then(response => response.json())
+        .then(json => {
+            resolve(json.message)
+        })
+        .catch(err => {
+            console.error(err.message)
+            reject(new Error(err.message))
+        })
     })
 }
 
