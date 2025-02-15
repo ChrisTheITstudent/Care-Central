@@ -68,7 +68,6 @@ export class Children {
         this.firstName = firstName
         this.lastName = lastName
         this.attending = isAttending
-        
     }
 
     public setDateOfBirth(day: number, month: number, year: number) {

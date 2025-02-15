@@ -5,7 +5,11 @@ interface ProfileProps {
     user: User | null
 }
 
-function Profile({user: User}:ProfileProps) {
+function Profile({ user: User }: ProfileProps) {
+  User?.getChildren()?.forEach(child => {
+    // child.getDateOfBirth()
+  });
+
   return (
       <div className='profile-container'>
           <h1>Profile</h1>
@@ -15,7 +19,7 @@ function Profile({user: User}:ProfileProps) {
               <p>{User?.getUsername()}</p>
               <p>Role</p>
               <p>{User?.getRole()}</p>
-              {(User?.getRole() == "educator") ?
+              {(User?.getRole() === "educator") ?
                   <>
                     <p>Job title</p>
                     <p>in development</p>
@@ -24,7 +28,7 @@ function Profile({user: User}:ProfileProps) {
                   null
             }
           </div>
-          {(User?.getRole() == "Family") ?
+          {(User?.getRole() === "Family") ?
               <>
                   <h2>Children</h2>
                     <div className='children-container'>
@@ -52,7 +56,7 @@ function Profile({user: User}:ProfileProps) {
               :
               null
           }
-          {(User?.getRole() == "educator") ?
+          {(User?.getRole() === "educator") ?
               <>
                   <h2>Qualifications</h2>
                   <div className='profile-grid'>
@@ -65,7 +69,7 @@ function Profile({user: User}:ProfileProps) {
               :
               null
           }
-          {(User?.getRole() == "educator") ?
+          {(User?.getRole() === "educator") ?
               <>
                   <h2>Emergency contact</h2>
                   <div className='profile-grid'>

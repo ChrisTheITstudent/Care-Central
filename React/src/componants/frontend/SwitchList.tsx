@@ -15,7 +15,7 @@ function SwitchList({ username }: SwitchListProps) {
             .then((dataList) => {
                 setChildList(dataList)
             })
-    }, [])
+    }, [username])
   return (
       <div className='switch-container' data-testid='switchList'>
           <p className='switch-header'>My Children</p>

@@ -31,9 +31,9 @@ function ProfileDropdown({ username, setUserName, setShowLogin, setProfileDropdo
             <h2>{username}</h2>
             <span className="sperator" />
             <ul>
-                <li onClick={handleProfileClick}><img className="profile-icon" src={profileIcon} /> Profile</li>
-                <li><img className="settings-icon" src={settingsIcon} />Settings</li>
-                <li><img className="help-icon" src={helpIcon} />Help</li>
+                <li onClick={handleProfileClick}><img className="profile-icon" src={profileIcon} alt="Profile" /> Profile</li>
+                <li><img className="settings-icon" src={settingsIcon} alt="Settings" />Settings</li>
+                <li><img className="help-icon" src={helpIcon} alt="Help" />Help</li>
             </ul>
         </div>
   )

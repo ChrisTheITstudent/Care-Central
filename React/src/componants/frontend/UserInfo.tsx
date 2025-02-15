@@ -14,11 +14,9 @@ function UserInfo({user}: UserInfoProps) {
     useEffect(() => {
 
         const userProfileImage = user?.getProfileImage()
-        console.log("User profile image:", userProfileImage)
 
         if (userProfileImage instanceof Blob) {
             const url = URL.createObjectURL(userProfileImage)
-            console.log("Created URL:", url);
             imageURL.current = url
             setProfileImage(url)
         } else if (typeof userProfileImage === 'string') {
@@ -30,7 +28,6 @@ function UserInfo({user}: UserInfoProps) {
         }
         return () => {
             if (imageURL.current) {
-                console.log("Revoke URL:", imageURL.current)
                 URL.revokeObjectURL(imageURL.current)
                 imageURL.current = null
             }

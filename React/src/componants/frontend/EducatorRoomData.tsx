@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Rooms } from '../../classes'
 
 interface EducatorDataProps {
@@ -8,12 +8,18 @@ interface EducatorDataProps {
     setRoomList: (rooms: Rooms[]) => void
 }
 
-function EducatorRoomData({roomList, initalRoomNames, setRoomList}: EducatorDataProps) {
+function EducatorRoomData({ roomList, initalRoomNames, setRoomList }: EducatorDataProps) {
+    
+    const [roomNames, setRoomNames] = useState(() => initalRoomNames)
 
     useEffect(() => {
         const rooms = initalRoomNames.map(roomName => new Rooms(roomName))
+        
+        let isMounted = true
+
         const loadRoomsData = async () => {
-            
+            console.log("Loading rooms data at", new Date().toLocaleTimeString())
+
             try {
                 await Promise.all(
                     rooms.map(async (room) => {
@@ -21,25 +27,35 @@ function EducatorRoomData({roomList, initalRoomNames, setRoomList}: EducatorData
                         await room.loadEducators()
                     })
                 )
-                setRoomList(rooms)
+                if (isMounted) {
+                    setRoomList([...rooms])
+                }
+                
             } catch (err) {
                 console.error("Error loading rooms:", err)
+            }
+
+            if (isMounted) {
+                console.log("Setting next execution in 5 minutes")
+                setTimeout(() => {
+                    loadRoomsData()
+                }, 300000)
             }
         }
 
         loadRoomsData()
 
-        const intervalId = setInterval(loadRoomsData, 300000)
+        return () => {
+            console.log("Component unmounting, stopping execution")
+            isMounted = false
+        }
 
-        return () => clearInterval(intervalId)
-    }, [initalRoomNames, setRoomList])
-
-    console.log(roomList)
+    }, [roomNames])
 
   return (
       <div className='educator-data-grid' data-testid="educatorGridContainer">
           {roomList.map((room, index) => (
-              <div className='room-info' key={index} data-testId='room-info'>
+              <div className='room-info' key={index} data-testid='room-info'>
                   <p>{room.getRoomName()}</p>
                   <p>Children: {room.getChildrenCount()}</p>
                   <p className={room.checkCompliance() ? "" : "room-warning"}>Educators: {room.getEducatorCount()}</p>

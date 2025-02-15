@@ -106,7 +106,7 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 ### [v1.0.3] - 2025-01-24
 - Feature: Unit testing added for all relevant functions
 
-### [v1.0.4] - 2025-02-09
+### [v1.0.4] - 2025-02-16
 - Feature: CI pipeline through GitHub Actions introduced
 - Bugfix: Throws TypeError that requires a bytes-like object but recieves a string when decoding hashed password on login
 - Bugfix: Loops fetch calls when logging in as educator

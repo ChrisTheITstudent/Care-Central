@@ -20,7 +20,7 @@ global.fetch = jest.fn(() => {
             child: {
                 id: 1,
                 name: "testName",
-                dob: "testDob",
+                dob: "18/02/2019",
                 attending: true
             }
         })

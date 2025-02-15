@@ -26,11 +26,11 @@ jest.mock('../classes', () => {
                 addChild: jest.fn(),
                 setCompliance: jest.fn(),
                 removeChild: jest.fn(),
-                checkCompliance: jest.fn().mockReturnValue(true),
+                checkCompliance: jest.fn().mockReturnValue(() => true),
                 getChildren: jest.fn().mockReturnValue([]),
                 getRoomName: jest.fn().mockReturnValue(roomName),
-                getChildrenCount: jest.fn().mockReturnValue(5),
-                getEducatorCount: jest.fn().mockReturnValue(2),
+                getChildrenCount: jest.fn().mockReturnValue(() => 5),
+                getEducatorCount: jest.fn().mockReturnValue(() => 2),
                 loadChildren: jest.fn().mockResolvedValue(undefined),
                 loadEducators: jest.fn().mockResolvedValue(undefined),
             }
@@ -74,8 +74,8 @@ describe('EducatorRoomData Componant', () => {
             loadChildren: jest.fn(),
             loadEducators: jest.fn().mockResolvedValue(undefined),
             getRoomName: jest.fn().mockReturnValue('Mock Room'),
-            getChildrenCount: jest.fn().mockRejectedValue(5),
-            getEducatorCount: jest.fn().mockReturnValue(2),
+            getChildrenCount: jest.fn().mockRejectedValue(() => 5),
+            getEducatorCount: jest.fn().mockReturnValue(() => 2),
             checkCompliance: jest.fn().mockReturnValue(true),
         }))
         render(
@@ -100,8 +100,8 @@ describe('EducatorRoomData Componant', () => {
             loadChildren: jest.fn().mockRejectedValue(new Error('Load error')),
             loadEducators: jest.fn().mockResolvedValue(undefined),
             getRoomName: jest.fn().mockReturnValue('Mock Room'),
-            getChildrenCount: jest.fn().mockReturnValue(5),
-            getEducatorCount: jest.fn().mockReturnValue(2),
+            getChildrenCount: jest.fn().mockReturnValue(() => 5),
+            getEducatorCount: jest.fn().mockReturnValue(() => 2),
             checkCompliance: jest.fn().mockReturnValue(true),
         }))
         render(
@@ -121,13 +121,17 @@ describe('EducatorRoomData Componant', () => {
 
     test('Should render room-info divs for each room in the room list', async () => {
         (Rooms as jest.Mock).mockImplementation(() => ({
-                    loadChildren: jest.fn().mockResolvedValue(undefined),
-                    loadEducators: jest.fn().mockResolvedValue(undefined),
-                    getRoomName: jest.fn().mockReturnValue("Test Room"),
-                    getChildrenCount: jest.fn().mockReturnValue(5),
-                    getEducatorCount: jest.fn().mockReturnValue(2),
-                    checkCompiance: jest.fn().mockReturnValue(true)
-                }))
+            roomName: "Test Room",
+            childrenAttending: null,                   
+            educatorsPresent: null,
+            isCompliant: false,
+            loadChildren: jest.fn().mockResolvedValue(undefined),
+            loadEducators: jest.fn().mockResolvedValue(undefined),
+            getRoomName: jest.fn().mockReturnValue("Test Room"),
+            getChildrenCount: jest.fn().mockReturnValue(() => 5),
+            getEducatorCount: jest.fn().mockReturnValue(() => 2),
+            checkCompiance: jest.fn().mockReturnValue(true)
+        }))
 
         const { rerender } = render(
             <EducatorRoomData
@@ -170,8 +174,8 @@ describe('EducatorRoomData Componant', () => {
                     loadChildren: jest.fn().mockResolvedValue(undefined),
                     loadEducators: jest.fn().mockResolvedValue(undefined),
                     getRoomName: jest.fn().mockReturnValue("Test Room"),
-                    getChildrenCount: jest.fn().mockReturnValue(5),
-                    getEducatorCount: jest.fn().mockReturnValue(2),
+                    getChildrenCount: jest.fn().mockReturnValue(() => 5),
+                    getEducatorCount: jest.fn().mockReturnValue(() => 2),
                     checkCompiance: jest.fn().mockReturnValue(false)
                 }))
 

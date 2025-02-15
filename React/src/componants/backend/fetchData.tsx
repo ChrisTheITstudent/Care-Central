@@ -23,7 +23,6 @@ export async function createUser(username: string | null): Promise<User> {
         fetch(url + "users/" + username)
             .then(response => response.json())
             .then(json => {
-                console.log(json)
                 let newUser = new User(json.id, json.username)
                 if (json.role) {
                     newUser.setRole(json.role)
@@ -41,6 +40,11 @@ export async function createUser(username: string | null): Promise<User> {
                             Object.keys(json2).forEach((key: string) => {
                                 const childData = json2[key];
                                 const child = new Children(childData.id, childData.firstName, "", childData.attending);
+                                if (childData.dob) {
+                                    let splitDOB = childData.dob.split("/", 3)
+                                    child.setDateOfBirth(splitDOB[2], splitDOB[1], splitDOB[0])
+                                }
+                                
                                 newUser.setChild(child)
                             })
                             resolve(newUser)

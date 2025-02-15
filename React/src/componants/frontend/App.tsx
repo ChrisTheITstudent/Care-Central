@@ -57,15 +57,14 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
       setUsername(storedUsername)
     }
   }
-  , [showLogin])
+  , [showLogin, userProp])
 
   useEffect(() => {
-    console.log("Username:", username)
     if (username === null && !getUserCookies()) {
-      console.log("Username is null and no cookies")
+      console.log("Username = null, no cookies")
       return
     } else if (username === null && getUserCookies()) {
-      console.log("Username is null but cookies exist")
+      console.log("Username = null, cookies exist")
       removeUserCookies()
       console.log("Cookies removed in username effect")
       if (showLogin) {
@@ -76,11 +75,6 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
         .then((userData) => {
           setUser(userData)
           setUserCookies(userData)
-          if (userData) {
-            console.log("User data defined in App.tsx")
-          } else {
-            console.log("User data not defined in App.tsx")
-          }
         })
       .catch((err) => {
       console.error("Error creating user:", err)
@@ -97,10 +91,6 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
           <li>Dashboard<img src={dropdown} alt='' /></li>
           <li onClick={() => {
             setProfileDropdown((prevState) => {
-              console.log("Profile dropdown clicked")
-              console.log("Username:", username)
-              console.log("Show login:", showLogin)
-              console.log("User:", user)
               return !prevState
             })
           }} data-testid="profile-dropdown-click">
