@@ -85,8 +85,9 @@ export class User {
     public getEmergencyContact(): string | undefined {
         return this.emergencyContact
     }
-    public getEmergencyNumber(): number | undefined {
-        return this.emergencyNumber
+    public getEmergencyNumber(): string | undefined {
+        if (this.emergencyNumber ? parseInt(this.emergencyNumber.toString().charAt(0)) === 4 : false)
+            return "0" + this.emergencyNumber
     }
 }
 
@@ -102,17 +103,17 @@ export class Children {
     private authorizedPersons: string[] = []
     private emergencyContact1: {
         name: string,
-        contact: number
+        contact: string
     } = {
             name: "Not Provided",
-            contact: 0o0
+            contact: "000"
     }
     private emergencyContact2: {
         name: string,
-        contact: number
+        contact: string
     } = {
         name: "Not Provided",
-        contact: 0o0
+        contact: "000"
 }
 
     constructor(id: number, firstName: string, lastName: string, isAttending: boolean) {
@@ -132,28 +133,33 @@ export class Children {
         if (this.emergencyContact1.name === nameToRemove)
             this.emergencyContact1 = {
                 name: "Not Provided",
-                contact: 0o0
+                contact: "000"
             }
         else if (this.emergencyContact2.name === nameToRemove)
             this.emergencyContact2 = {
                 name: "Not Provided",
-                contact: 0o0
+                contact: "000"
             }
         else
             throw new Error(`${nameToRemove} was not found in emergency contacts`)
     }
 
     public addEmergencyContact(priority: number, name: string, contactNumber: number) {
+        let contactNumberString: string
+        if (contactNumber ? parseInt(contactNumber.toString().charAt(0)) === 4 : false)
+            contactNumberString = "0" + contactNumber
+        else
+            contactNumberString = contactNumber.toString()
         if (priority === 1) {
             this.emergencyContact1 = {
                 name: name,
-                contact: contactNumber
+                contact: contactNumberString
             }
         }
         else if (priority === 2) {
             this.emergencyContact2 = {
                 name: name,
-                contact: contactNumber
+                contact: contactNumberString
             }
         }
         else
