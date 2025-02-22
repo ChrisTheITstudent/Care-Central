@@ -39,11 +39,64 @@ export async function createUser(username: string | null): Promise<User> {
                         .then(json2 => {
                             Object.keys(json2).forEach((key: string) => {
                                 const childData = json2[key];
-                                const child = new Children(childData.id, childData.firstName, "", childData.attending);
-                                if (childData.dob) {
-                                    let splitDOB = childData.dob.split("/", 3)
+                                console.log(childData)
+                                const child = new Children(childData[0], childData[1], childData[2], childData[4]);
+                                if (childData[3]) {
+                                    let splitDOB = childData[3].split("/", 3)
                                     child.setDateOfBirth(splitDOB[2], splitDOB[1], splitDOB[0])
                                 }
+                                child.setRoom(setRoomBasedOnAge(child))
+                                if (childData[7]) {
+                                    if (childData[7] === 1) {
+                                        child.setMedicalPlan(true)
+                                    }
+                                    if (childData[7] === 0) {
+                                        child.setMedicalPlan(false)
+                                    }
+                                    else {
+                                        console.log(childData[7])
+                                    }
+                                }
+                                if (childData[8]) {
+                                    let childDataArray = childData.split(",")
+                                    childDataArray.forEach((allergy: string) => {
+                                        child.addAllergy(allergy)
+                                    });
+                                }
+                                if (childData[9]) {
+                                    let personsDataArray = childData[9].split(",")
+                                    for (let i = 0; i < personsDataArray.length; i+=2) {
+                                        const element = personsDataArray[i];
+                                        const element2 = personsDataArray[i + 1]
+                                        child.addAuthorizedPerson(element, element2)
+                                    }
+                                }
+                                if (childData[10]) {
+                                    for (let i = 0; i < childData[10].length; i+=2) {
+                                        const element1 = childData[10][i];
+                                        const element2 = childData[10][i + 1]
+                                        
+                                        let contactToAdd = {
+                                            name: element1,
+                                            contact: element2
+                                        }
+                                        childData.addEmergencyContact(1, contactToAdd.name, contactToAdd.contact)
+                                    }
+                                }
+                                if (childData[11]) {
+                                    for (let i = 0; i < childData[11].length; i+=2) {
+                                        const element1 = childData[11][i];
+                                        const element2 = childData[11][i + 1]
+                                        
+                                        let contactToAdd = {
+                                            name: element1,
+                                            contact: element2
+                                        }
+                                        childData.addEmergencyContact(2, contactToAdd.name, contactToAdd.contact)
+                                    }
+                                }
+
+                                console.log(child)
                                 
                                 newUser.setChild(child)
                             })
@@ -220,4 +273,27 @@ export async function getEducatorsByRoomName(roomName: String): Promise<User[]> 
         reject(new Error(err.message))
         })
     })
+}
+
+export function setRoomBasedOnAge(child: Children): string {
+    let ageStringSplit: string[] = child.getAge().split(" ")
+
+    if ((parseInt(ageStringSplit[0]) === 1 && parseInt(ageStringSplit[2]) < 3) || (parseInt(ageStringSplit[0]) === 0 && parseInt(ageStringSplit[2]) > 0)) {
+        return "Babies"
+    }
+    if ((parseInt(ageStringSplit[0]) === 1 && parseInt(ageStringSplit[2]) >= 3) || (parseInt(ageStringSplit[0]) === 2 && parseInt(ageStringSplit[2]) < 6)) {
+        return "Toddlers"
+    }
+    if ((parseInt(ageStringSplit[0]) === 2 && parseInt(ageStringSplit[2]) >= 6) || (parseInt(ageStringSplit[0]) === 3 && parseInt(ageStringSplit[2]) < 3)) {
+        return "Pre Kindergarten"
+    }
+    if (parseInt(ageStringSplit[0]) === 3 && parseInt(ageStringSplit[2]) >= 3) {
+        return "Kindergarten"
+    }
+    if (parseInt(ageStringSplit[0]) > 3) {
+        return "PreSchool"
+    }
+    else {
+        return "Please check DOB"
+    }
 }

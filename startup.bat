@@ -23,7 +23,7 @@ if exist %PYTHON_APP_DIR%\api.py (
 )
 
 echo Starting Care Central...
-set REACT_APP_DIR=C:\Users\c_mil\Desktop\Dev\Typescript\care-central
+set REACT_APP_DIR=C:\Users\c_mil\Desktop\Dev\TypeScript\CareCentral Git\Care-Central\React
 start cmd /k "cd /d %REACT_APP_DIR% && npm start"
 
 echo **********Care Central initalized**********

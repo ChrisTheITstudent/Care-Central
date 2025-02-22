@@ -42,6 +42,7 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
   useEffect(() => {
     if (showLogin) {
       setProfileDropdown(false)
+      setShowProfile(false)
       if (!userProp) {
         setUser(null)
         removeUserCookies()

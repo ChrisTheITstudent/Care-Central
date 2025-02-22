@@ -8,6 +8,11 @@ export class User {
     private profileImage?: Blob | string
     private profileImageUrl?: string
     private room?: string
+    private jobTitle?: string
+    private qualification?: string
+    private qualificationInstituation?: string
+    private emergencyContact?: string
+    private emergencyNumber?: number
 
     constructor(userId: number, username: string | null) {
         this.username = username
@@ -34,6 +39,21 @@ export class User {
             this.profileImageUrl = undefined;
         }
     }
+    public setJobTitle(title: string) {
+        this.jobTitle = title
+    }
+    public setQulification(qualification: string) {
+        this.qualification = qualification
+    }
+    public setQualInstitution(institution: string) {
+        this.qualificationInstituation = institution
+    }
+    public setEmergencyContact(contact: string) {
+        this.emergencyContact = contact
+    }
+    public setEmergencyNumber(emergencyNumber: number) {
+        this.emergencyNumber = emergencyNumber
+    }
 
     public getUserId(): number {
         return this.userId
@@ -53,6 +73,21 @@ export class User {
     public getRoom(): string | undefined {
         return this.room
     }
+    public getJobTitle(): string | undefined {
+        return this.jobTitle
+    }
+    public getQualification(): string | undefined {
+        return this.qualification
+    }
+    public getQualificationInstitution(): string | undefined {
+        return this.qualificationInstituation
+    }
+    public getEmergencyContact(): string | undefined {
+        return this.emergencyContact
+    }
+    public getEmergencyNumber(): number | undefined {
+        return this.emergencyNumber
+    }
 }
 
 export class Children {
@@ -62,6 +97,23 @@ export class Children {
     private dateOfBirth?: Date
     private attending: boolean
     private room?: string
+    private medicalPlan?: boolean
+    private allergies: string[] =[]
+    private authorizedPersons: string[] = []
+    private emergencyContact1: {
+        name: string,
+        contact: number
+    } = {
+            name: "Not Provided",
+            contact: 0o0
+    }
+    private emergencyContact2: {
+        name: string,
+        contact: number
+    } = {
+        name: "Not Provided",
+        contact: 0o0
+}
 
     constructor(id: number, firstName: string, lastName: string, isAttending: boolean) {
         this.id = id
@@ -70,6 +122,53 @@ export class Children {
         this.attending = isAttending
     }
 
+    public removeAllergy(allergyToRemove: string) {
+        // Remove allergy
+    }
+    public removeAuthorizedPerson(firstName: string, lastName: string) {
+        // Remove person
+    }
+    public removeEmergencyContact(nameToRemove: string) {
+        if (this.emergencyContact1.name === nameToRemove)
+            this.emergencyContact1 = {
+                name: "Not Provided",
+                contact: 0o0
+            }
+        else if (this.emergencyContact2.name === nameToRemove)
+            this.emergencyContact2 = {
+                name: "Not Provided",
+                contact: 0o0
+            }
+        else
+            throw new Error(`${nameToRemove} was not found in emergency contacts`)
+    }
+
+    public addEmergencyContact(priority: number, name: string, contactNumber: number) {
+        if (priority === 1) {
+            this.emergencyContact1 = {
+                name: name,
+                contact: contactNumber
+            }
+        }
+        else if (priority === 2) {
+            this.emergencyContact2 = {
+                name: name,
+                contact: contactNumber
+            }
+        }
+        else
+            throw new Error("Emergency contact must be either 1st or 2nd emergency contact")
+    }
+    public addAuthorizedPerson(firstName: string, lastName: string) {
+        this.authorizedPersons.push(firstName)
+        this.authorizedPersons.push(lastName)
+    }
+    public addAllergy(allergy: string) {
+        this.allergies?.push(allergy)
+    }
+    public setMedicalPlan(hasMedicalPlan: boolean) {
+        this.medicalPlan = hasMedicalPlan
+    }
     public setDateOfBirth(day: number, month: number, year: number) {
         let dob: Date = new Date(day + "-" + month + "-" + year)
         this.dateOfBirth = dob
@@ -105,6 +204,85 @@ export class Children {
         else
             throw new Error("Room not set")
     }
+    public hasMedicalPlan() {
+        if (this.medicalPlan)
+            return this.medicalPlan
+        else
+            return false
+    }
+    public getAllergies() {
+        if (this.allergies)
+            return this.allergies
+        else
+            return "No allergies"
+    }
+    public getAuthorizedPersons() {
+        if (this.authorizedPersons) {
+            interface Person {
+                firstName: string,
+                lastName: string
+            }
+            let authorizedList: Person[] = []
+
+            for (let i = 0; i < this.authorizedPersons.length; i+=2) {
+                const element = this.authorizedPersons[i];
+                const element2 = this.authorizedPersons[i+1]
+                
+                const newAuthorizedPerson: Person = {
+                    firstName: element,
+                    lastName: element2
+                }
+
+                authorizedList.push(newAuthorizedPerson)
+            }
+
+            return Array.isArray(authorizedList)
+                ? authorizedList
+                : [authorizedList]
+        }
+        else
+            return [{
+                firstName: "Parents",
+                lastName: "Only"
+            }]
+    }
+    public getEmergencyContact1() {
+        if (this.emergencyContact1)
+            return this.emergencyContact1
+        else
+            return {
+                name: "n/a",
+                contact: 0o0
+            }
+    }
+    public getEmergencyContact2() {
+        if (this.emergencyContact2)
+            return this.emergencyContact2
+        else
+            return {
+                name: "n/a",
+                contact: 0o0
+            }
+    }
+    public getAge(): String {
+        const childDOB = this.getDateOfBirth()
+        let diff = Date.now() - childDOB.getTime()
+      
+        let seconds = Math.floor(diff / 1000)
+        let minutes = Math.floor(seconds / 60)
+        let hours = Math.floor(minutes / 60)
+        let days = Math.floor(hours / 24)
+        let months = Math.floor(days / 30)
+        let years = Math.floor(days / 365)
+      
+        seconds %= 60
+        minutes %= 60
+        hours %= 24
+        days %= 30
+        months %= 12
+      
+        return `${years} yrs, ${months} mths`
+      }
 }
 
 export class Rooms {

@@ -161,12 +161,15 @@ describe('fetchData', () => {
                     ok: true,
                     status: 200,
                     json: () => Promise.resolve({
-                        1: {
-                            id: 1,
-                            firstName: "testName",
-                            dob: "testDob",
-                            attending: true
-                        }
+                        1: [
+                            1,
+                            "testName",
+                            "testLastname",
+                            "testDOB",
+                            1,
+                            "testRoom",
+                            2
+                        ]
                     })
                 } as Response)
             }
@@ -211,12 +214,15 @@ describe('fetchData', () => {
                     ok: true,
                     status: 200,
                     json: () => Promise.resolve({
-                        1: {
-                            id: 1,
-                            firstName: "testName",
-                            dob: "testDob",
-                            attending: true
-                        }
+                        1: [
+                            1,
+                            "testName",
+                            "testLastname",
+                            "testDOB",
+                            1,
+                            "testRoom",
+                            2
+                        ]
                     })
                 } as Response)
             }

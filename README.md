@@ -18,6 +18,7 @@ A SQLite database is required to run **Care Central**. Database hosting is curre
 - Easy sign-in/out for children.
 - Seamless sign-in/out for educators.
 - Secure login/logout.
+- User profiles with children information
 
 ---
 
@@ -42,6 +43,7 @@ The Python environment and API settings will be configured automatically after r
      - Python environment
      - API
      - Care Central project directory
+     - React App directory
    - Update these paths to match your local system.
 
 2. **Run `startup.bat`**:
@@ -69,7 +71,7 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 ---
 
 ## ⚠️ Known Issues
-- Date of birth does not get automatically set for children if user has Family role
+- None currently
 
 ---
 
@@ -77,7 +79,7 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 
 ### [Unreleased]
 - Feature: Onboarding
-- Feature: Profile
+- Feature: Editable profiles and children information
 - Feature: Settings
 - Feature: Help documentation
 - Feature: Allow educators to move older children to younger rooms. Show these in the UI
@@ -111,6 +113,11 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 - Bugfix: Throws TypeError that requires a bytes-like object but recieves a string when decoding hashed password on login
 - Bugfix: Loops fetch calls when logging in as educator
 - Testing: Jest tests introduced into CI pipeline
+
+### [v1.0.5] - 2025-02-DD
+- Feature: Introduced profile features adding more data for educators and children
+- Bugfix: CCS errors making the grinds look bad
+- Testing: Profile tests still required
 
 ---
 

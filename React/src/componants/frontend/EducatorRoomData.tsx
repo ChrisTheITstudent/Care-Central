@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Rooms } from '../../classes'
 
 interface EducatorDataProps {
@@ -18,7 +18,6 @@ function EducatorRoomData({ roomList, initalRoomNames, setRoomList }: EducatorDa
         let isMounted = true
 
         const loadRoomsData = async () => {
-            console.log("Loading rooms data at", new Date().toLocaleTimeString())
 
             try {
                 await Promise.all(
@@ -46,7 +45,6 @@ function EducatorRoomData({ roomList, initalRoomNames, setRoomList }: EducatorDa
         loadRoomsData()
 
         return () => {
-            console.log("Component unmounting, stopping execution")
             isMounted = false
         }
 
