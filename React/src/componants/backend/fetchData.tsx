@@ -1,4 +1,6 @@
 import { User, Children } from "../../classes"
+import { ChildrenFormData, UserFormData } from "../frontend/RegistrationForm"
+import { ChildrenFormData as OffboardingChildrenData, UserFormData as OffboardingUserData } from "../frontend/OffBoarding"
 
 // let db = new sql.Database("d:\CareCentral.db", (err) => {
 //         if (err) {
@@ -17,6 +19,148 @@ interface VerificationData {
 }
 
 const url: string = "http://127.0.0.1:8000/"
+// fetchData exclusive (non-export functions)
+function isChildrenFormData(entry: any): entry is ChildrenFormData {
+    return (
+        typeof entry.firstName === "string" &&
+        typeof entry.lastName === "string" &&
+        typeof entry.parentUsername === "string" &&
+        typeof entry.emergencyContact1Name === "string" &&
+        typeof entry.emergencyContact1Number === "string"
+    );
+}
+function isUserFormData(entry: any): entry is UserFormData {
+    return (
+        typeof entry.username === "string" &&
+        typeof entry.role === "string" &&
+        typeof entry.emergencyContactName === "string" &&
+        typeof entry.emergencyContactNumber === "string"
+    );
+}
+
+// Export functions
+export function offboarding(entries: Array<OffboardingUserData | OffboardingChildrenData>): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        fetch(url + "offboard", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(entries)
+        })
+        .then(async (response) => {
+            if (!response.ok) {
+                const errorText = await response.text()
+                throw new Error(`HTTP ${response.status}: ${errorText}`)
+            }
+            return response.json()
+        })
+        .then(json => {
+            console.log("API response:", json)
+            
+            if (json.status === "FAILED") {
+                reject(new Error("Failed to remove entries"))
+            } else if (json.status === "ERROR") {
+                reject(new Error("An error occured on the server"))
+            } else {
+                resolve(true)
+            }
+        })
+        .catch(error => {
+            console.error("API Request Error:", error)
+            reject(error)
+        })
+    })
+}
+export function manualRegister(entries: Array<UserFormData | ChildrenFormData>): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        fetch(url + "onboard/single_entries", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(entries),
+        })
+        .then(async (response) => {
+            if (!response.ok) {
+                const errorText = await response.text()
+                throw new Error(`HTTP ${response.status}: ${errorText}`)
+            }
+            return response.json()
+        })
+        .then(json => {
+            console.log("API response:", json)
+            
+            if (json.status === "FAILED") {
+                reject(new Error("Failed to register entries"))
+            } else if (json.status === "ERROR") {
+                reject(new Error("An error occured on the server"))
+            } else {
+                resolve(true)
+            }
+        })
+        .catch(error => {
+            console.error("API Request Error:", error)
+            reject(error)
+        })
+    })
+}
+
+export function onboardUsers(userData: File): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        const formData = new FormData()
+        formData.append("file", userData)
+
+        fetch(url + "onboarding/users", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.status === "FAILED") {
+                    reject(false)
+                } else if (json.status === "ERROR") {
+                    resolve(false)
+                } else if (json.status === "OK") {
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+            })
+            .catch(err => {
+                console.error(err.message)
+                reject(false)
+            })
+    })
+}
+
+export function onboardChildren(userData: File): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        const formData = new FormData()
+        formData.append("file", userData)
+
+        fetch(url + "onboarding/children", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.status === "FAILED") {
+                    reject(false)
+                } else if (json.status === "ERROR") {
+                    resolve(false)
+                } else if (json.status === "OK") {
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+            })
+            .catch(err => {
+                console.error(err.message)
+                reject(false)
+            })
+    })
+}
 
 export async function createUser(username: string | null): Promise<User> {
     return new Promise((resolve, reject) => {

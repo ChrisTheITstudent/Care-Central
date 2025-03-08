@@ -12,6 +12,9 @@ import RoomToggles from './RoomToggles';
 import EducatorRoomData from './EducatorRoomData';
 import Login from './Login';
 import Profile from './Profile';
+import AdminLSidebar from './AdminLSidebar';
+import AdminMidPanel from './AdminMidPanel';
+import AdminRSidebar from './AdminRSidebar';
 
 interface AppProps {
   showLoginProp?: boolean
@@ -107,13 +110,15 @@ function App({ showLoginProp = true, userProp = null, setShowLoginProp}: AppProp
           <>
           <div className='Right-side-bar'>
             {user?.getRole() === 'Family' && username ? <SwitchList username={username} /> : null}
-            {user?.getRole() === 'educator' && username ? <RoomToggles room={user.getRoom()} user={user} /> : null}
+              {user?.getRole() === 'educator' && username ? <RoomToggles room={user.getRoom()} user={user} /> : null}
+              {user?.getRole() === 'admin' && username ? <AdminLSidebar /> : null}
           </div>
           <div className='Middle-info'>
-            {user?.getRole() === 'educator' ? <EducatorRoomData roomList={roomList} initalRoomNames={initalRoomNames} setRoomList={setRoomList} /> : null}
+              {user?.getRole() === 'educator' ? <EducatorRoomData roomList={roomList} initalRoomNames={initalRoomNames} setRoomList={setRoomList} /> : null}
+              {user?.getRole() === 'admin' && username ? <AdminMidPanel /> : null}
           </div>
-          <div className='Left-side-bar'>
-
+            <div className='Left-side-bar'>
+              {user?.getRole() === 'admin' && username ? <AdminRSidebar /> : null}
           </div>
           </>
         }

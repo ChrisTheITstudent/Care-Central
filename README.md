@@ -19,6 +19,8 @@ A SQLite database is required to run **Care Central**. Database hosting is curre
 - Seamless sign-in/out for educators.
 - Secure login/logout.
 - User profiles with children information
+- Random sample data generation file
+- Onboarding through csv files for user data and children data
 
 ---
 
@@ -46,7 +48,11 @@ The Python environment and API settings will be configured automatically after r
      - React App directory
    - Update these paths to match your local system.
 
-2. **Run `startup.bat`**:
+2. **Generating Sample Data**:
+   - If you choose to regenerate random sample data:
+     - Simply run `GenerateRandomData.py`
+
+3. **Run `startup.bat`**:
    - Once the paths are updated, run `startup.bat` to start:
      - The development environment
      - The Care Central server locally
@@ -71,17 +77,19 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 ---
 
 ## ⚠️ Known Issues
-- None currently
+- Sets children for admin roles
 
 ---
 
 ## 📅 Changelog
 
 ### [Unreleased]
-- Feature: Onboarding
 - Feature: Editable profiles and children information
 - Feature: Settings
 - Feature: Help documentation
+  - Onboarding
+  - Offboarding
+  - User guide
 - Feature: Allow educators to move older children to younger rooms. Show these in the UI
 
 <!-- ### [v1.0.2] - YYYY-MM-DD
@@ -114,10 +122,18 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 - Bugfix: Loops fetch calls when logging in as educator
 - Testing: Jest tests introduced into CI pipeline
 
-### [v1.0.5] - 2025-02-DD
+### [v1.0.5] - 2025-02-23
 - Feature: Introduced profile features adding more data for educators and children
 - Bugfix: CCS errors making the grinds look bad
 - Testing: Profile tests still required
+
+### [v1.1.0] - 2025-03-08
+- Feature: API endpoints added for onboarding of Users and Children via CSV files
+- Feature: Admin dashboard
+  - Onboarding bulk users and children
+  - Add users/children one by one
+- Update: Remove redundant /users/register endpoint
+- Bugfix: Added unique constraints to database for Users(username) and unique combination constraint for Children(firstName, lastName)
 
 ---
 
