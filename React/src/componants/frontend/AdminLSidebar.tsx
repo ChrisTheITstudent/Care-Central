@@ -63,27 +63,27 @@ function AdminLSidebar() {
   }
 
   return (
-    <div className='adminLsidebar'>
+    <div className='adminLsidebar' data-testid="adminLeftBar">
       <ul>
         <p className='LsidebarHeader'>Onboarding</p>
         <span className="LsidebarSpacer" />
-        <li onClick={handleOnboardUsers}>Users</li>
-        <li onClick={handleOnboardChildren}>Children</li>
+        <li onClick={handleOnboardUsers} data-testid="onboardUsers">Users</li>
+        <li onClick={handleOnboardChildren} data-testid="onboardChildren">Children</li>
         <span className="LsidebarSpacer" />
         <p className='LsidebarHeader'>Add Data</p>
         <span className="LsidebarSpacer" />
-        <li onClick={addUser}>Users</li>
-        <li onClick={addChildren}>Children</li>
+        <li onClick={addUser} data-testid="addSingleUserData">Users</li>
+        <li onClick={addChildren} data-testid="addSingleChildData">Children</li>
         <span className="LsidebarSpacer" />
         <p className='LsidebarHeader'>Offboarding</p>
         <span className="LsidebarSpacer" />
-        <li onClick={removeUser}>Users</li>
-        <li onClick={removeChildren}>Children</li>
+        <li onClick={removeUser} data-testid="removeUser">Users</li>
+        <li onClick={removeChildren} data-testid="removeChild">Children</li>
         <span className="LsidebarSpacer" />
       </ul>
 
       {selectedOption !== null && (
-        <div className="upload-form">
+        <div className="upload-form" data-testid="upload-form">
           <img src={closeIcon} alt='Close' className='close-icon' data-testid={"upload-close"} onClick={() => setSelectedOption(null)} />
           <p>Upload CSV for {selectedOption}</p>
           <input type="file" accept=".csv" onChange={handleFileUpload} />

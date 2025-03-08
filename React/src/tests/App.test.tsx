@@ -9,11 +9,13 @@ import {setUserCookies, getUserCookies, removeUserCookies } from '../componants/
 
 const mockFamilyUser = new User(1, "TestUser")
 const mockEducatorUser = new User(2, "TestEducator")
+const mockAdminUser = new User(3, "TestAdmin")
 const mockChildrenList = [new Children(1, "TestChild", "TestChild", true), new Children(2, "TestChild2", "TestChild2", true), new Children(3, "TestChild3", "TestChild3", true)]
 const mockEmptyUser = new User(0, "")
 
 mockFamilyUser.setRole("Family")
 mockEducatorUser.setRole("educator")
+mockAdminUser.setRole("admin")
 mockFamilyUser.setChild(mockChildrenList[0])
 mockFamilyUser.setChild(mockChildrenList[1])
 mockFamilyUser.setChild(mockChildrenList[2])
@@ -94,7 +96,9 @@ describe('Navigation', () => {
     fireEvent.click(screen.getByTestId('profile-dropdown-click'));
     expect(screen.queryByTestId('profile-dropdown')).toBeNull();
   })
+})
 
+describe('Login feature', () => {
   test('Shows login screen when state is to showLogin', () => {
     render(<App showLoginProp={true}/>);
     expect(screen.getByTestId('username')).toBeInTheDocument();
@@ -133,11 +137,29 @@ describe('Mid container rendering', () => {
     render(<App showLoginProp={false} userProp={mockEducatorUser} />)
     expect(await screen.findByTestId('educator-data')).toBeInTheDocument()
   })
+
+  test('Renders Admin left sidebar when user is an admin', async () => {
+    jest.spyOn(fetchData, 'createUser').mockResolvedValue(mockAdminUser)
+    render(<App showLoginProp={false} userProp={mockAdminUser} />)
+    expect(await screen.findByTestId('adminLeftBar')).toBeInTheDocument()
+  })
+
+  test('Renders Admin mid pannel when user is an admin', async () => {
+    jest.spyOn(fetchData, 'createUser').mockResolvedValue(mockAdminUser)
+    render(<App showLoginProp={false} userProp={mockAdminUser} />)
+    expect(await screen.findByTestId('adminMid')).toBeInTheDocument()
+  })
+
+  test('Renders Admin right sidebar when user is an admin', async () => {
+    jest.spyOn(fetchData, 'createUser').mockResolvedValue(mockAdminUser)
+    render(<App showLoginProp={false} userProp={mockAdminUser} />)
+    expect(await screen.findByTestId('adminRightBar')).toBeInTheDocument()
+  })
 })
 
 describe('Errors work as intended', () => {
   test('Error message is displayed when user creation fails', async () => {
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { })
     jest.spyOn(fetchData, 'createUser').mockRejectedValueOnce(new Error("Failed to create user"))
     render(<App />);
     waitFor(() => {
@@ -147,14 +169,16 @@ describe('Errors work as intended', () => {
   })
 
   test('Empty user data is handled', async () => {
-    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => { })
     jest.spyOn(fetchData, 'createUser').mockResolvedValueOnce(mockEmptyUser)
     render(<App />);
     waitFor(() => {
       expect(consoleLogSpy).toHaveBeenCalledWith("User data not defined in App.tsx")
     })
   })
+})
 
+  describe('Frontend data handling', () => {
   test('User data is handled', async () => {
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => { })
     const { createUser } = jest.requireActual('../componants/backend/fetchData')

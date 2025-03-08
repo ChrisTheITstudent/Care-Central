@@ -135,6 +135,9 @@ Care Central is currently not hosted. Hosting solutions are under consideration.
 - Update: Remove redundant /users/register endpoint
 - Bugfix: Added unique constraints to database for Users(username) and unique combination constraint for Children(firstName, lastName)
 
+### [v1.1.1] - 2025-03-09
+- Testing: Added jest tests for 1.1.0 features
+
 ---
 
 ## 🤝 Contributing

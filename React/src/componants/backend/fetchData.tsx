@@ -19,24 +19,6 @@ interface VerificationData {
 }
 
 const url: string = "http://127.0.0.1:8000/"
-// fetchData exclusive (non-export functions)
-function isChildrenFormData(entry: any): entry is ChildrenFormData {
-    return (
-        typeof entry.firstName === "string" &&
-        typeof entry.lastName === "string" &&
-        typeof entry.parentUsername === "string" &&
-        typeof entry.emergencyContact1Name === "string" &&
-        typeof entry.emergencyContact1Number === "string"
-    );
-}
-function isUserFormData(entry: any): entry is UserFormData {
-    return (
-        typeof entry.username === "string" &&
-        typeof entry.role === "string" &&
-        typeof entry.emergencyContactName === "string" &&
-        typeof entry.emergencyContactNumber === "string"
-    );
-}
 
 // Export functions
 export function offboarding(entries: Array<OffboardingUserData | OffboardingChildrenData>): Promise<boolean> {

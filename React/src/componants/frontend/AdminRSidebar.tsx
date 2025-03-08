@@ -2,7 +2,9 @@ import React from 'react'
 
 function AdminRSidebar() {
   return (
-    <div>AdminRSidebar</div>
+    <div data-testid="adminRightBar">
+      AdminRSidebar
+    </div>
   )
 }
 

@@ -2,7 +2,9 @@ import React from 'react'
 
 function AdminMidPanel() {
   return (
-    <div>AdminMidPanel</div>
+    <div data-testid="adminMid">
+      AdminMidPanel
+    </div>
   )
 }
 
