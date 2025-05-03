@@ -19,42 +19,102 @@ export class User {
         this.userId = userId
     }
 
+    // Setters
     public setRoom(room: string) {
         this.room = room
     }
+    public removeRoom() {
+        this.room = undefined
+    }
+
     public setRole(role: string) {
         this.role = role
     }
+    public removeRole() {
+        this.role = undefined
+    }
+
     public setChild(child: Children) {
         this.children?.push(child)
     }
-    public setBlob(blob: Blob | string) {
+    public removeChild(childToRemove: Children) {
+        this.children = this.children.filter(
+            child => child.getId() !== childToRemove.getId()
+        )
+    }
+    public removeAllChildren() {
+        this.children = []
+    }
+
+    private setProfileImageUrl(profileImage: string | Blob) {
         if (this.profileImageUrl) {
             URL.revokeObjectURL(this.profileImageUrl);
         }
-        this.profileImage = blob;
-        if (blob instanceof Blob) {
-            this.profileImageUrl = URL.createObjectURL(blob);
+        this.profileImageUrl = profileImage instanceof Blob ? URL.createObjectURL(profileImage) : profileImage;
+        this.profileImage = profileImage
+    }
+    public removeProfileImage() {
+        if (this.profileImageUrl) {
+            URL.revokeObjectURL(this.profileImageUrl);
+        }
+        this.profileImage = undefined
+        this.profileImageUrl = undefined
+    }
+    public setProfileImage(profileImage: Blob): void;
+    public setProfileImage(profileImage: string): void;
+    public setProfileImage(profileImage: string | Blob): void {
+        if (profileImage instanceof Blob) {
+            this.setProfileImageUrl(profileImage)
+            this.profileImage = profileImage
+        } else if (typeof profileImage === 'string') {
+            this.setProfileImageUrl(profileImage)
+            this.profileImage = `data:image/png;base64,${profileImage}`
         } else {
-            this.profileImageUrl = undefined;
+            this.setProfileImageUrl(profileImage)
         }
     }
+    
     public setJobTitle(title: string) {
         this.jobTitle = title
     }
+    public removeJobTitle() {
+        this.jobTitle = undefined
+    }
+
     public setQulification(qualification: string) {
         this.qualification = qualification
     }
+    public removeQualification() {
+        this.qualification = undefined
+    }
+
     public setQualInstitution(institution: string) {
         this.qualificationInstituation = institution
     }
-    public setEmergencyContact(contact: string) {
-        this.emergencyContact = contact
+    public removeQualInstitution() {
+        this.qualificationInstituation = undefined
     }
+
+    public setEmergencyContact(contact: string): void;
+    public setEmergencyContact(contact: string, number: number): void;
+    public setEmergencyContact(contact: string, number?: number): void {
+        this.emergencyContact = contact
+        if (number) {
+            this.setEmergencyNumber(number)
+        }
+    }
+    public removeEmergencyContact() {
+        this.emergencyContact = undefined
+    }
+
     public setEmergencyNumber(emergencyNumber: number) {
         this.emergencyNumber = emergencyNumber
     }
+    public removeEmergencyNumber() {
+        this.emergencyNumber = undefined
+    }
 
+    // Getters
     public getUserId(): number {
         return this.userId
     }
@@ -273,13 +333,17 @@ export class Children {
     public getAge(): String {
         const childDOB = this.getDateOfBirth()
         let diff = Date.now() - childDOB.getTime()
+        console.log(diff)
+        console.log(childDOB.getTime())
+        console.log(Date.now())
+        console.log(childDOB)
       
         let seconds = Math.floor(diff / 1000)
-        let minutes = Math.floor(seconds / 60)
+        let minutes = Math.floor(diff / 60000)
         let hours = Math.floor(minutes / 60)
-        let days = Math.floor(hours / 24)
-        let months = Math.floor(days / 30)
-        let years = Math.floor(days / 365)
+        let days = Math.floor(minutes / 1440)
+        let months = Math.floor(minutes / 43800)
+        let years = Math.floor(minutes / 525600)
       
         seconds %= 60
         minutes %= 60
