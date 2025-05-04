@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Children, User } from "../classes";
 import Profile from "../componants/frontend/Profile";
-import { getMockAge } from "../helpers";
 
 const mockEducatorProfileProps = new User(1, "TestEducatorUser")
 const mockFamilyProfileProps = new User(1, "TestFamilyUser")
@@ -80,7 +79,7 @@ describe("Profile componant", () => {
         expect(screen.getByTestId('role')).toHaveTextContent("Family")
 
         expect(screen.getByTestId('child-name')).toHaveTextContent("Sally")
-        expect(screen.getByTestId('child-age')).toHaveTextContent(getMockAge())
+        expect(screen.getByTestId('child-age')).toHaveTextContent("4 yrs, 3 mths")
         expect(screen.getByTestId('child-medical')).toHaveTextContent("Yes")
         expect(screen.getByTestId('child-authorised')).toHaveTextContent("Sally Sample")
         expect(screen.getByTestId('child-emergency-contact1')).toHaveTextContent("Name: Simple Contact: 0412345678")

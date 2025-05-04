@@ -154,7 +154,7 @@ export async function createUser(username: string | null): Promise<User> {
                     newUser.setRole(json.role)
                 }
                 if (json.profileImage) {
-                    newUser.setProfileImage(json.profileImage)
+                    newUser.setBlob(json.profileImage)
                 }
                 if (json.room) {
                     newUser.setRoom(json.room)

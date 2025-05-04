@@ -186,7 +186,7 @@ describe('fetchData', () => {
 
             expect(user.getUsername()).toBe("test")
             expect(user.getRole()).toBe("testRole")
-            expect(user.getProfileImage()).toBe("data:image/png;base64,testImage")
+            expect(user.getProfileImage()).toBe("testImage")
             expect(user.getRoom()).toBe("testRoom")
             expect(user.getChildren()?.length).toBe(1)
             expect(user.getChildren()?.[0].getFirstName()).toBe("testName")
@@ -239,7 +239,7 @@ describe('fetchData', () => {
 
             expect(user.getUsername()).toBe("test")
             expect(user.getRole()).toBe("testRole")
-            expect(user.getProfileImage()).toBe("data:image/png;base64,testImage")
+            expect(user.getProfileImage()).toBe("testImage")
             expect(user.getRoom()).toBe("testRoom")
             expect(user.getChildren()?.length).toBe(1)
             expect(user.getChildren()?.[0].getFirstName()).toBe("testName")
@@ -283,7 +283,7 @@ describe('fetchData', () => {
 
             expect(user.getUsername()).toBe("test")
             expect(user.getRole()).toBe("testRole")
-            expect(user.getProfileImage()).toBe("data:image/png;base64,testImage")
+            expect(user.getProfileImage()).toBe("testImage")
             expect(user.getRoom()).toBe("testRoom")
             expect(user.getChildren()?.length).toBe(0)
             expect(fetch).toHaveBeenCalledTimes(2)
@@ -341,7 +341,7 @@ describe('fetchData', () => {
 
             expect(user.getUsername()).toBe("test")
             expect(user.getRole()).toBe("testRole")
-            expect(user.getProfileImage()).toBe("data:image/png;base64,testImage")
+            expect(user.getProfileImage()).toBe("testImage")
             expect(user.getRoom()).toBe("testRoom")
             expect(user.getChildren()?.length).toBe(0)
             expect(fetch).toHaveBeenCalledTimes(1)
@@ -401,7 +401,7 @@ describe('fetchData', () => {
         
             const user: User = await fetchData.createUser("test")
         
-            expect(user.getProfileImage()).toBe("data:image/png;base64,testImage")
+            expect(user.getProfileImage()).toBe("testImage")
             expect(fetch).toHaveBeenCalledTimes(2)
         })
     
